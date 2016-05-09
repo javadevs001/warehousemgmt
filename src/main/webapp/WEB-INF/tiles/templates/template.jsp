@@ -35,6 +35,7 @@
 <body>
 
 <tiles:insertAttribute name="body" defaultValue=""/>
+
 <tilesx:useAttribute id="jsNames" name="jsNames" classname="java.util.List" ignore="true"/>
 
 <script src="<c:url value="/resources/js/jquery/jquery-2.1.4.min.js"/>"></script>
@@ -47,51 +48,6 @@
     <script src="<c:url value="/resources/js/${js}"/>"></script>
 </c:forEach>
 
-<script id="BeneficiaryTemplate" type="x-tmpl-mustache">
-         <div class="column">
-            <div class="ui card">
-                <div class="blurring dimmable image imageDimmerSelector">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <a href="<c:url value='/beneficiary/form?id={{id}}'/>" class="circular ui icon button" data-content="Modifier">
-                                    <i class="icon edit"></i>
-                                </a>
-                                <a href="<c:url value='/demand/form?beneficiaryId={{id}}'/>" class="circular ui icon button" data-content="Nouvelle demande">
-                                    <i class="icon file text"></i>
-                                </a>
-                                <a href="<c:url value='/beneficiary/info?id={{id}}'/>" class="circular ui icon button" data-content="Info">
-                                    <i class="icon eye"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui fluid image imageDimmerSelector">
-                        <c:if test="{{active}}">
-    <a class="ui right corner label">
-    <i class="check icon"></i>
-    </a>
-</c:if>
-                        <img src="<c:url value='/resources/image/profile/{{sex}}.png'/>"/>
-                    </div>
-                </div>
-                <div class="content">
-                    <a href="<c:url value='/beneficiary/info?id={{id}}'/>" class="header"><c:out value="{{firstName}}"/> <c:out
-        value="{{lastName}}"/></a>
-                    <div class="meta">
-                        <span class="date"><i class="mini icon time"></i> Ajouter en <c:out value="{{year}}"/></span>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a href="<c:url value='/demand/list?beneficiaryId={{id}}'/>">
-                        <i class="file text icon"></i>
-                        <c:out value="{{demandCountLabel}}"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-</script>
 
 
 </body>

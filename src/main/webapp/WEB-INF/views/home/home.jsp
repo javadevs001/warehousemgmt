@@ -39,6 +39,8 @@
         </div>
 
     </div>
+
+
     <div class="ten wide column">
 
         <div class="ui segment">
@@ -48,6 +50,8 @@
         </div>
 
     </div>
+
+
     <div class="three wide column">
 
         <div class="ui segment">
