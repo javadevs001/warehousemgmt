@@ -22,7 +22,7 @@ public class Location extends AbstractAuditingEntity {
     private LocationState state; /* EMPTY OR ASSIGNED */
     @Enumerated(EnumType.STRING)
     private Zone zone;
-    @Enumerated(EnumType.STRING)
+    @Column
     private String locationType;
 
     private Location() {

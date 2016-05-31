@@ -3,10 +3,7 @@ package be.atc.warehousemgmt.model.entity;
 import be.atc.warehousemgmt.model.enums.PersonType;
 import be.atc.warehousemgmt.model.enums.Title;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 /**
  * Created by ahmedidoumhaidi on 22/05/16.
@@ -14,6 +11,10 @@ import javax.persistence.Enumerated;
 
 @Entity
 public class Person extends AbstractAuditingEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long personId;
 
     @Enumerated(EnumType.STRING)
     private Title title; /* Mr Mrs */
@@ -33,6 +34,13 @@ public class Person extends AbstractAuditingEntity {
     public Person() {
     }
 
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
 
     public Title getTitle() {
         return title;
