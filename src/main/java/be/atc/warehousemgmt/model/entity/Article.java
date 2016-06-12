@@ -15,8 +15,9 @@ public class Article extends AbstractAuditingEntity {
 
     @Column(unique = true, nullable = false)
     private String label;
-    @Column(nullable = false)
-    private Integer unitPrice;
+    @Column
+    private Double buyingUnitPrice;
+    private Double sellingUnitPrice;
     private Integer threshold;
     private Integer depth;
     private Integer width;
@@ -70,12 +71,20 @@ public class Article extends AbstractAuditingEntity {
         this.threshold = threshold;
     }
 
-    public Integer getUnitPrice() {
-        return unitPrice;
+    public Double getBuyingUnitPrice() {
+        return buyingUnitPrice;
     }
 
-    public void setUnitPrice(Integer unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setBuyingUnitPrice(Double buyingUnitPrice) {
+        this.buyingUnitPrice = buyingUnitPrice;
+    }
+
+    public Double getSellingUnitPrice() {
+        return sellingUnitPrice;
+    }
+
+    public void setSellingUnitPrice(Double sellingUnitPrice) {
+        this.sellingUnitPrice = sellingUnitPrice;
     }
 
     public Integer getDepth() {

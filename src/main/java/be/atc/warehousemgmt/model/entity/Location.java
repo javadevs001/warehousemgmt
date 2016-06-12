@@ -8,6 +8,7 @@ import javax.persistence.*;
 /**
  * Created by ahmedidoumhaidi on 22/05/16.
  */
+
 @Entity
 public class Location extends AbstractAuditingEntity {
 
@@ -17,7 +18,6 @@ public class Location extends AbstractAuditingEntity {
 
     @Column(nullable = false, unique = true)
     private String reference;
-
     @Enumerated(EnumType.STRING)
     private LocationState state; /* EMPTY OR ASSIGNED */
     @Enumerated(EnumType.STRING)

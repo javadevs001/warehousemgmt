@@ -14,18 +14,17 @@ public class Palette extends AbstractAuditingEntity {
     private Long paletteId;
 
     @ManyToOne
+    @JoinColumn
     private Vehicle vehicle;
-
     @ManyToOne
-    private Order order;
-
+    @JoinColumn
+    private Command command;
     @ManyToOne
     @JoinColumn
     private PaletteType paletteType;
 
     public Palette() {
     }
-
 
     public Long getPaletteId() {
         return paletteId;
@@ -43,12 +42,12 @@ public class Palette extends AbstractAuditingEntity {
         this.vehicle = vehicle;
     }
 
-    public Order getOrder() {
-        return order;
+    public Command getCommand() {
+        return command;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
     public PaletteType getPaletteType() {

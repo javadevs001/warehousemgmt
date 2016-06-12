@@ -24,6 +24,7 @@ public class Person extends AbstractAuditingEntity {
     private String email;
     private String phone;
     private String fax;
+    private boolean isMoral;
 
     @Embedded
     private Address address;
@@ -113,5 +114,13 @@ public class Person extends AbstractAuditingEntity {
 
     public void setType(PersonType type) {
         this.type = type;
+    }
+
+    public boolean isMoral() {
+        return isMoral;
+    }
+
+    public void setMoral(boolean moral) {
+        isMoral = moral;
     }
 }

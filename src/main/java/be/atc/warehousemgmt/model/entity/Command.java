@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Order extends AbstractAuditingEntity {
+public class Command extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,16 +20,16 @@ public class Order extends AbstractAuditingEntity {
     private State state;
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
+    @Column
     private String priority;
-
     @ManyToOne
     @JoinColumn
     private Delivery delivery;
-
     @ManyToOne
+    @JoinColumn
     private Person person;
 
-    public Order() {
+    public Command() {
     }
 
     public Long getOrderId() {
@@ -64,5 +64,19 @@ public class Order extends AbstractAuditingEntity {
         this.priority = priority;
     }
 
+    public Delivery getDelivery() {
+        return delivery;
+    }
 
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }

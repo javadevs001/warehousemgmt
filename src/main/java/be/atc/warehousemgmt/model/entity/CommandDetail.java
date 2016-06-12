@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class OrderDetail extends AbstractAuditingEntity {
+public class CommandDetail extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,18 +17,15 @@ public class OrderDetail extends AbstractAuditingEntity {
 
     @Enumerated(EnumType.STRING)
     private State state;
-
     @Column
     private String amount;
-
     @ManyToOne
     @JoinColumn
-    private Order order;
-
+    private Command command;
     @OneToOne
     private Product product;
 
-    public OrderDetail() {
+    public CommandDetail() {
     }
 
     public Long getOrderDetailId() {
@@ -55,12 +52,12 @@ public class OrderDetail extends AbstractAuditingEntity {
         this.amount = amount;
     }
 
-    public Order getOrder() {
-        return order;
+    public Command getCommand() {
+        return command;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
     public Product getProduct() {

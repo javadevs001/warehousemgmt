@@ -14,9 +14,11 @@ public class Box extends AbstractAuditingEntity {
     private Long boxId;
 
     @ManyToOne
+    @JoinColumn
     private BoxType boxType;
 
     @ManyToOne
+    @JoinColumn
     private Palette palette;
 
     public Box() {
