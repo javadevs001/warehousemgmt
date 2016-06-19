@@ -12,14 +12,6 @@
         <img src="${ctx}/resources/image/logo/logo.png">
     </div>
 
-    <div class="left menu">
-        <div class="item">
-            <div class="ui fluid icon input" style="width: 500px;">
-                <input id="searchUI" type="text" placeholder="Recherche rapide..." autofocus>
-                <i class="search icon"></i>
-            </div>
-        </div>
-    </div>
 
     <div class="right menu">
         <a href="<c:url value="/j_spring_security_logout"/>" class="item" data-content="Déconnexion"><i
@@ -30,36 +22,47 @@
 
 <div class="ui three column grid container centered stackable doubling">
 
-    <div class="three wide column">
-
-        <div class="ui segment">
-            <div class="ui horizontal divider">
-                Actions
-            </div>
-        </div>
-
+    <div class="one wide column">
     </div>
 
 
-    <div class="ten wide column">
-
+    <div class="fourteen wide column">
         <div class="ui segment">
             <div class="ui horizontal divider">
                 Home
             </div>
-        </div>
+            <div class="ui three column grid container stackable doubling centered">
+                <div class="row">
+                    <div class="column">
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="header">
+                                    <i class="icon file text link"></i>
+                                    Gestion Fournisseurs
+                                </div>
+                                <div class="description">
+                                    Consulter le Tableau et Ajouter/Modifier les commandes fournisseurs.
+                                </div>
+                            </div>
+                            <div class="ui bottom attached button blue">
+                                <i class="eye icon"></i>
+                                Voir
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
 
+                    </div>
+                    <div class="column">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    <div class="three wide column">
-
-        <div class="ui segment">
-            <div class="ui horizontal divider">
-                Filtres
-            </div>
-        </div>
-
+    <div class="one wide column">
     </div>
 
 </div>
