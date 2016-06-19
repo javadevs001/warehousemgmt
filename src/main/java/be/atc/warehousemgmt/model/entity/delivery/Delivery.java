@@ -1,4 +1,7 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.delivery;
+
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.person.Person;
 
 import javax.persistence.*;
 

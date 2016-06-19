@@ -1,7 +1,8 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.customer;
 
-import be.atc.warehousemgmt.model.enums.OrderType;
-import be.atc.warehousemgmt.model.enums.State;
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.delivery.Delivery;
+import be.atc.warehousemgmt.model.entity.person.Person;
 
 import javax.persistence.*;
 
@@ -10,17 +11,13 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Command extends AbstractAuditingEntity {
+public class CustomerOrder extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
-
-    @Enumerated(EnumType.STRING)
-    private State state;
-    @Enumerated(EnumType.STRING)
-    private OrderType orderType;
+    private Long customerOrderId;
     @Column
+    private String state;
     private String priority;
     @ManyToOne
     @JoinColumn
@@ -29,31 +26,24 @@ public class Command extends AbstractAuditingEntity {
     @JoinColumn
     private Person person;
 
-    public Command() {
+    public CustomerOrder() {
     }
 
-    public Long getOrderId() {
-        return orderId;
+
+    public Long getCustomerOrderId() {
+        return customerOrderId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setCustomerOrderId(Long customerOrderId) {
+        this.customerOrderId = customerOrderId;
     }
 
-    public State getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(String state) {
         this.state = state;
-    }
-
-    public OrderType getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(OrderType orderType) {
-        this.orderType = orderType;
     }
 
     public String getPriority() {

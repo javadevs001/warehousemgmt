@@ -1,4 +1,7 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.box;
+
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.palette.Palette;
 
 import javax.persistence.*;
 

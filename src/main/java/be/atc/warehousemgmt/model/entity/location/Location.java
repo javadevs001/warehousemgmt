@@ -1,7 +1,6 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.location;
 
-import be.atc.warehousemgmt.model.enums.LocationState;
-import be.atc.warehousemgmt.model.enums.Zone;
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 
 import javax.persistence.*;
 

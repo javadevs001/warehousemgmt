@@ -1,7 +1,7 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.person;
 
-import be.atc.warehousemgmt.model.enums.PersonType;
-import be.atc.warehousemgmt.model.enums.Title;
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.Address;
 
 import javax.persistence.*;
 

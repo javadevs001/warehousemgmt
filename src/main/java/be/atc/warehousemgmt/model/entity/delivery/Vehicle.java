@@ -1,6 +1,6 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.delivery;
 
-import be.atc.warehousemgmt.model.enums.VehicleState;
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 
 import javax.persistence.*;
 

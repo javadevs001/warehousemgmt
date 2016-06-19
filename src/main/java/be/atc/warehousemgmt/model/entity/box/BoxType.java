@@ -1,4 +1,6 @@
-package be.atc.warehousemgmt.model.entity;
+package be.atc.warehousemgmt.model.entity.box;
+
+import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,25 +12,27 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class PaletteType extends AbstractAuditingEntity {
+public class BoxType extends AbstractAuditingEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long paletteTypeId;
+    private Long boxTypeId;
+
 
     private Integer height;
     private Integer width;
     private Integer length;
 
-    public PaletteType() {
+    public BoxType() {
     }
 
-    public Long getPaletteTypeId() {
-        return paletteTypeId;
+    public Long getBoxTypeId() {
+        return boxTypeId;
     }
 
-    public void setPaletteTypeId(Long paletteTypeId) {
-        this.paletteTypeId = paletteTypeId;
+    public void setBoxTypeId(Long boxTypeId) {
+        this.boxTypeId = boxTypeId;
     }
 
     public Integer getHeight() {
