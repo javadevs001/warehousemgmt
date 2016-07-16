@@ -1,8 +1,8 @@
 package be.atc.warehousemgmt.model.entity.palette;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
-import be.atc.warehousemgmt.model.entity.customer.CustomerOrder;
 import be.atc.warehousemgmt.model.entity.delivery.Vehicle;
+import be.atc.warehousemgmt.model.entity.orders.Orders;
 
 import javax.persistence.*;
 
@@ -22,7 +22,7 @@ public class Palette extends AbstractAuditingEntity {
     private Vehicle vehicle;
     @ManyToOne
     @JoinColumn
-    private CustomerOrder customerOrder;
+    private Orders orders;
     @ManyToOne
     @JoinColumn
     private PaletteType paletteType;
@@ -46,19 +46,19 @@ public class Palette extends AbstractAuditingEntity {
         this.vehicle = vehicle;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
-
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
-    }
-
     public PaletteType getPaletteType() {
         return paletteType;
     }
 
     public void setPaletteType(PaletteType paletteType) {
         this.paletteType = paletteType;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 }

@@ -1,16 +1,21 @@
 package be.atc.warehousemgmt.model.service;
 
-import be.atc.warehousemgmt.model.entity.person.Person;
+
+import be.atc.warehousemgmt.model.entity.Person;
 
 import java.util.List;
 
 /**
- * Created by ahmedidoumhaidi on 19/06/16.
+ * Created by ahmedidoumhaidi on 12/07/16.
  */
 public interface PersonService {
 
+    Person savePerson(Person person);
+
     List<Person> getAllSuppliers();
 
-    Person getPersonById(Long personId);
+    boolean exists(Long personId);
+
+    Person findPersonById(Long personId);
 
 }

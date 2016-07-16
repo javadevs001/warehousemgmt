@@ -1,7 +1,10 @@
 package be.atc.warehousemgmt.model.service;
 
-import be.atc.warehousemgmt.model.entity.supplier.SupplierOrder;
-import be.atc.warehousemgmt.model.repository.SupplierOrderRepository;
+import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
+import be.atc.warehousemgmt.model.entity.orders.OrderType;
+import be.atc.warehousemgmt.model.entity.orders.Orders;
+import be.atc.warehousemgmt.model.repository.OrderDetailRepository;
+import be.atc.warehousemgmt.model.repository.OrdersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,29 +12,41 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by ahmedidoumhaidi on 19/06/16.
- */
+ * Created by ahmedidoumhaidi on 12/07/16.
+ **/
 
 @Service
 @Transactional
 public class SupplierOrderServiceImpl implements SupplierOrderService {
 
     @Inject
-    private SupplierOrderRepository supplierOrderRepository;
+    private OrdersRepository ordersRepository;
+    @Inject
+    private OrderDetailRepository orderDetailRepository;
+
 
     @Override
-    @Transactional(readOnly = true)
-    public List<SupplierOrder> getAllSupplierOrder() {
-        return supplierOrderRepository.findAll();
+    public List<Orders> getAllSupplierOrders() {
+        return ordersRepository.findAllByType(OrderType.Supplier);
     }
 
     @Override
-    public SupplierOrder saveSupplierOrder(SupplierOrder supplierOrder) {
-        return supplierOrderRepository.save(supplierOrder);
+    public Orders saveSupplierOrder(Orders orders) {
+        return ordersRepository.save(orders);
     }
 
     @Override
-    public SupplierOrder getSupplierOrderById(Long supplierOrderId) {
-        return supplierOrderRepository.findOne(supplierOrderId);
+    public Orders findSupplierOrders(Long ordersId) {
+        return ordersRepository.findOne(ordersId);
+    }
+
+    @Override
+    public OrderDetail saveSupplierOrdersDetail(OrderDetail orderDetail) {
+        return orderDetailRepository.save(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> findAllSupplierOrderDetailBySupplierOrder(Orders orders) {
+        return orderDetailRepository.findAllByOrders(orders);
     }
 }

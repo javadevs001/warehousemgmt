@@ -224,12 +224,6 @@
             </exclusions>
         </dependency>
 
-        <!--JPA-->
-        <dependency>
-            <groupId>org.ow2.spec.ee</groupId>
-            <artifactId>ow2-jpa-2.0-spec</artifactId>
-            <version>2.0.0</version>
-        </dependency>
 
         <!--Validation-->
         <dependency>
@@ -238,12 +232,6 @@
             <version>1.1.0.Final</version>
         </dependency>
 
-        <!--Javassist-->
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.12.0.GA</version>
-        </dependency>
 
         <!--Tiles-->
 
@@ -333,6 +321,12 @@
                     <artifactId>tools</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
         </dependency>
 
         <dependency>

@@ -1,6 +1,7 @@
 package be.atc.warehousemgmt.model.entity.catalog;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.Person;
 
 import javax.persistence.*;
 
@@ -20,17 +21,29 @@ public class Article extends AbstractAuditingEntity {
     @Column
     private Double buyingUnitPrice;
     private Double sellingUnitPrice;
-    private Integer threshold;
-    private Integer depth;
-    private Integer width;
-    private Integer height;
-    private Integer weight;
+    private Integer packageQuantity;
+    private Integer threshold; /* Seuil */
+    private Integer quantity; /* La quantité dans la ZONE (IN & STOCK) */
+    private Double depth;
+    private Double width;
+    private Double height;
+    private Double weight;
     private String description;
+    private Double volume;
+    private boolean archived;
 
     @ManyToOne
-    private Catalog catalog;
+    private Person person;
 
     public Article() {
+    }
+
+    public Long getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     public String getLabel() {
@@ -39,38 +52,6 @@ public class Article extends AbstractAuditingEntity {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Integer getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(Integer threshold) {
-        this.threshold = threshold;
     }
 
     public Double getBuyingUnitPrice() {
@@ -89,35 +70,91 @@ public class Article extends AbstractAuditingEntity {
         this.sellingUnitPrice = sellingUnitPrice;
     }
 
-    public Integer getDepth() {
+    public Integer getPackageQuantity() {
+        return packageQuantity;
+    }
+
+    public void setPackageQuantity(Integer packageQuantity) {
+        this.packageQuantity = packageQuantity;
+    }
+
+    public Integer getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Integer threshold) {
+        this.threshold = threshold;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getDepth() {
         return depth;
     }
 
-    public void setDepth(Integer depth) {
+    public void setDepth(Double depth) {
         this.depth = depth;
     }
 
-    public Integer getHeight() {
+    public Double getWidth() {
+        return width;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public Long getArticleId() {
-        return articleId;
+    public Double getWeight() {
+        return weight;
     }
 
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
-    public Catalog getCatalog() {
-        return catalog;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Double volume) {
+        this.volume = volume;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 }

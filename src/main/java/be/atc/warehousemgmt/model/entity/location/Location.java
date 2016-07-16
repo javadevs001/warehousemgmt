@@ -1,6 +1,7 @@
 package be.atc.warehousemgmt.model.entity.location;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.catalog.Article;
 
 import javax.persistence.*;
 
@@ -23,6 +24,14 @@ public class Location extends AbstractAuditingEntity {
     private Zone zone;
     @Column
     private String locationType;
+
+    @ManyToOne
+    @JoinColumn
+    private Article article;
+    @Column
+    private Integer articleQuantity;
+    private boolean completed; /* L'emplacement est rempli */
+    private Integer articleQuantityAvailableToStore; /* Le nombre d'article qu'on peut encore mettre dans cette emplacement */
 
     private Location() {
     }
@@ -65,5 +74,37 @@ public class Location extends AbstractAuditingEntity {
 
     public void setLocationType(String locationType) {
         this.locationType = locationType;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public Integer getArticleQuantity() {
+        return articleQuantity;
+    }
+
+    public void setArticleQuantity(Integer articleQuantity) {
+        this.articleQuantity = articleQuantity;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public Integer getArticleQuantityAvailableToStore() {
+        return articleQuantityAvailableToStore;
+    }
+
+    public void setArticleQuantityAvailableToStore(Integer articleQuantityAvailableToStore) {
+        this.articleQuantityAvailableToStore = articleQuantityAvailableToStore;
     }
 }

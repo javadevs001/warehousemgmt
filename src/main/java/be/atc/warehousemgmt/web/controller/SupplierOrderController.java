@@ -1,11 +1,16 @@
 package be.atc.warehousemgmt.web.controller;
 
-import be.atc.warehousemgmt.model.entity.person.Person;
-import be.atc.warehousemgmt.model.entity.supplier.SupplierOrder;
+import be.atc.warehousemgmt.model.entity.Person;
+import be.atc.warehousemgmt.model.entity.catalog.Article;
+import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
+import be.atc.warehousemgmt.model.entity.orders.OrderPriority;
+import be.atc.warehousemgmt.model.entity.orders.Orders;
+import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.PersonService;
 import be.atc.warehousemgmt.model.service.SupplierOrderService;
-import be.atc.warehousemgmt.web.bean.SupplierOrderBean;
-import be.atc.warehousemgmt.web.validator.SupplierOrderValidator;
+import be.atc.warehousemgmt.web.controller.bean.SupplierOrderBean;
+import be.atc.warehousemgmt.web.controller.bean.SupplierOrderDetailBean;
+import be.atc.warehousemgmt.web.controller.validator.SupplierOrderValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by ahmedidoumhaidi on 19/06/16.
+ * @author aidoumhaidi
  */
 
 @Controller
@@ -33,41 +38,71 @@ public class SupplierOrderController {
     private PersonService personService;
     @Inject
     private SupplierOrderValidator supplierOrderValidator;
+    @Inject
+    private ArticleService articleService;
 
-    @RequestMapping(value = "SupplierOrderTable", method = RequestMethod.GET)
-    public String getSupplierOrderTable(Model model) {
-        List<SupplierOrderBean> supplierOrderBeen = supplierOrderService.getAllSupplierOrder().stream().map(SupplierOrderBean::from).collect(Collectors.toList());
+    @RequestMapping(value = "getSupplierOrderTable", method = RequestMethod.GET)
+    public String getSupplierOrdersTable(Model model) {
+        List<SupplierOrderBean> supplierOrderBeen = supplierOrderService.getAllSupplierOrders().stream().map(SupplierOrderBean::of).collect(Collectors.toList());
         model.addAttribute("supplierOrderBeen", supplierOrderBeen);
-        return "supplierOrderTableView";
+        return "supplierOrderTable";
     }
 
-    @RequestMapping(value = "SupplierOrderForm", method = RequestMethod.GET)
-    public String getSupplierOrderForm(Model model) {
+    @RequestMapping(value = "getAddSupplierOrderForm", method = RequestMethod.GET)
+    public String getAddSupplierOrdersForm(Model model) {
         SupplierOrderBean supplierOrderBean = new SupplierOrderBean();
         model.addAttribute("supplierOrderBean", supplierOrderBean);
-        model.addAttribute("suppliers", personService.getAllSuppliers());
-        return "supplierOrderFormView";
+        model.addAttribute("priorities", OrderPriority.values());
+        model.addAttribute("persons", personService.getAllSuppliers());
+        return "supplierOrderForm";
     }
 
     @RequestMapping(value = "saveSupplierOrder", method = RequestMethod.POST)
-    public String saveSupplierOrder(Model model, @ModelAttribute SupplierOrderBean supplierOrderBean, BindingResult errors, RedirectAttributes redirectAttributes) {
-        supplierOrderValidator.validate(supplierOrderBean, errors);
+    public String saveSupplierOrders(Model model, @ModelAttribute SupplierOrderBean supplierOrderBean, BindingResult errors, RedirectAttributes redirectAttributes) {
+        supplierOrderValidator.validateSupplierOrder(supplierOrderBean, errors);
         if (errors.hasErrors()) {
-            model.addAttribute("suppliers", personService.getAllSuppliers());
-            return "supplierOrderFormView";
+            model.addAttribute("priorities", OrderPriority.values());
+            model.addAttribute("persons", personService.getAllSuppliers());
+            return "supplierOrderForm";
         }
 
-        Person person = personService.getPersonById(supplierOrderBean.getPersonId());
-        SupplierOrder supplierOrder = supplierOrderService.saveSupplierOrder(supplierOrderBean.prepareForCreation(person));
-        redirectAttributes.addAttribute("supplierOrderId", supplierOrder.getSupplierOrderId());
-        return "redirect:supplierOrderDetail";
+        Person person = personService.findPersonById(supplierOrderBean.getPersonId());
+        supplierOrderService.saveSupplierOrder(supplierOrderBean.prepareForCreation(person));
+        return "redirect:/SupplierOrderController/getSupplierOrderTable";
     }
 
-    @RequestMapping(value = "SupplierOrderDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "getSupplierOrderDetail", method = RequestMethod.GET)
     public String getSupplierOrderDetail(Model model, @RequestParam Long supplierOrderId) {
-        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(supplierOrderId);
-        model.addAttribute("supplierOrderBean", SupplierOrderBean.from(supplierOrder));
-        return "supplierOrderDetailView";
+        Orders orders = supplierOrderService.findSupplierOrders(supplierOrderId);
+        List<OrderDetail> orderDetails = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(orders);
+        model.addAttribute("supplierOrder", orders);
+        model.addAttribute("supplierOrderDetails", orderDetails.stream().map(SupplierOrderDetailBean::of).collect(Collectors.toList()));
+        return "supplierOrderDetail";
+    }
+
+    @RequestMapping(value = "getSupplierOrderDetailForm", method = RequestMethod.GET)
+    public String getSupplierOrdersDetailForm(Model model, @RequestParam Long supplierOrdersId) {
+        Orders supplierOrders = supplierOrderService.findSupplierOrders(supplierOrdersId);
+        SupplierOrderDetailBean supplierOrderDetailBean = new SupplierOrderDetailBean();
+        supplierOrderDetailBean.setSupplierOrderId(supplierOrders.getOrdersId());
+        model.addAttribute("supplierOrderDetailBean", supplierOrderDetailBean);
+        model.addAttribute("articles", articleService.findAllBySupplier(supplierOrders.getPerson()));
+        return "supplierOrderDetailForm";
+    }
+
+    @RequestMapping(value = "saveSupplierOrderDetail", method = RequestMethod.POST)
+    public String saveSupplierOrdersDetail(Model model, @ModelAttribute SupplierOrderDetailBean supplierOrderDetailBean, BindingResult errors) {
+        supplierOrderValidator.validateSupplierOrderDetailBean(supplierOrderDetailBean, errors);
+        if (errors.hasErrors()) {
+            Person person = supplierOrderService.findSupplierOrders(supplierOrderDetailBean.getSupplierOrderId()).getPerson();
+            model.addAttribute("articles", articleService.findAllBySupplier(person));
+            return "supplierOrderDetailForm";
+        }
+
+        Orders orders = supplierOrderService.findSupplierOrders(supplierOrderDetailBean.getSupplierOrderId());
+        Article article = articleService.findArticleById(supplierOrderDetailBean.getArticle());
+        OrderDetail orderDetail = supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailBean.prepareForCreation(article, orders));
+        return "redirect:getSupplierOrderTable";
     }
 
 }

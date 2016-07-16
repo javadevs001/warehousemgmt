@@ -4,9 +4,6 @@ import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 
 import javax.persistence.*;
 
-/**
- * Created by ahmedidoumhaidi on 22/05/16.
- */
 
 @Entity
 public class Vehicle extends AbstractAuditingEntity {
@@ -14,19 +11,13 @@ public class Vehicle extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long vehicleId;
-
     @Column
     private String label;
-
     @Enumerated(EnumType.STRING)
     private VehicleState vehicleState;
-
-    @Column
-    private Integer weight;
-    @Column
-    private Integer fuel;
-    @Column
-    private Integer payload;
+    @ManyToOne
+    @JoinColumn
+    private VehicleType vehicleType;
 
     public Vehicle() {
     }
@@ -47,14 +38,6 @@ public class Vehicle extends AbstractAuditingEntity {
         this.vehicleState = vehicleState;
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
     public String getLabel() {
         return label;
     }
@@ -63,19 +46,11 @@ public class Vehicle extends AbstractAuditingEntity {
         this.label = label;
     }
 
-    public Integer getFuel() {
-        return fuel;
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 
-    public void setFuel(Integer fuel) {
-        this.fuel = fuel;
-    }
-
-    public Integer getPayload() {
-        return payload;
-    }
-
-    public void setPayload(Integer payload) {
-        this.payload = payload;
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 }

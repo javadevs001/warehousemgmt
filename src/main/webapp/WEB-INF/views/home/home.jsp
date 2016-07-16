@@ -29,35 +29,30 @@
     <div class="fourteen wide column">
         <div class="ui segment">
             <div class="ui horizontal divider">
-                Home
+                Accueil
             </div>
+            <div class="ui hidden divider horizontal"></div>
             <div class="ui three column grid container stackable doubling centered">
-                <div class="row">
                     <div class="column">
                         <div class="ui card">
                             <div class="content">
                                 <div class="header">
                                     <i class="icon file text link"></i>
-                                    Gestion Fournisseurs
+                                    Gestion des commandes Fournisseurs
                                 </div>
                                 <div class="description">
-                                    Consulter le Tableau et Ajouter/Modifier les commandes fournisseurs.
+                                    Consultation et Ajout/Modification des commandes fournisseurs.
                                 </div>
                             </div>
-                            <div class="ui bottom attached button blue">
+                            <a href="<c:url value="/SupplierOrderController/getSupplierOrderTable"/>"
+                               class="ui bottom attached button blue">
                                 <i class="eye icon"></i>
-                                Voir
-                            </div>
+                                Consulter
+                            </a>
                         </div>
                     </div>
-                    <div class="column">
-
-                    </div>
-                    <div class="column">
-
-                    </div>
-                </div>
             </div>
+            <div class="ui hidden divider horizontal"></div>
         </div>
     </div>
 

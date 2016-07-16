@@ -1,7 +1,7 @@
 package be.atc.warehousemgmt.model.service;
 
-import be.atc.warehousemgmt.model.entity.person.Person;
-import be.atc.warehousemgmt.model.entity.person.PersonType;
+import be.atc.warehousemgmt.model.entity.Person;
+import be.atc.warehousemgmt.model.entity.PersonType;
 import be.atc.warehousemgmt.model.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by ahmedidoumhaidi on 19/06/16.
+ * Created by ahmedidoumhaidi on 12/07/16.
  */
 
 @Service
@@ -21,13 +21,23 @@ public class PersonServiceImpl implements PersonService {
     private PersonRepository personRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Person> getAllSuppliers() {
-        return personRepository.findAllByType(PersonType.SUPPLIER);
+    public Person savePerson(Person person) {
+        return personRepository.save(person);
     }
 
     @Override
-    public Person getPersonById(Long personId) {
+    public List<Person> getAllSuppliers() {
+        return personRepository.findAllByPersonType(PersonType.Supplier);
+    }
+
+    @Override
+    public boolean exists(Long personId) {
+        return personRepository.exists(personId);
+    }
+
+    @Override
+    public Person findPersonById(Long personId) {
         return personRepository.findOne(personId);
     }
+
 }

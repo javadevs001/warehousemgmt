@@ -1,18 +1,22 @@
 package be.atc.warehousemgmt.model.service;
 
-import be.atc.warehousemgmt.model.entity.supplier.SupplierOrder;
+import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
+import be.atc.warehousemgmt.model.entity.orders.Orders;
 
 import java.util.List;
 
 /**
- * Created by ahmedidoumhaidi on 19/06/16.
+ * Created by ahmedidoumhaidi on 12/07/16.
  */
 public interface SupplierOrderService {
 
-    List<SupplierOrder> getAllSupplierOrder();
+    List<Orders> getAllSupplierOrders();
 
-    SupplierOrder saveSupplierOrder(SupplierOrder supplierOrder);
+    Orders saveSupplierOrder(Orders orders);
 
-    SupplierOrder getSupplierOrderById(Long supplierOrderId);
+    Orders findSupplierOrders(Long ordersId);
 
+    OrderDetail saveSupplierOrdersDetail(OrderDetail orderDetail);
+
+    List<OrderDetail> findAllSupplierOrderDetailBySupplierOrder(Orders orders);
 }
