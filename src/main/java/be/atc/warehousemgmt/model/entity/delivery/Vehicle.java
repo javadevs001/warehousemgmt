@@ -15,6 +15,9 @@ public class Vehicle extends AbstractAuditingEntity {
     private String label;
     @Enumerated(EnumType.STRING)
     private VehicleState vehicleState;
+    @Column
+    private Double usedSurface;
+    private Double usedWeight;
     @ManyToOne
     @JoinColumn
     private VehicleType vehicleType;
@@ -53,4 +56,21 @@ public class Vehicle extends AbstractAuditingEntity {
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }
+
+    public Double getUsedSurface() {
+        return usedSurface;
+    }
+
+    public void setUsedSurface(Double usedSurface) {
+        this.usedSurface = usedSurface;
+    }
+
+    public Double getUsedWeight() {
+        return usedWeight;
+    }
+
+    public void setUsedWeight(Double usedWeight) {
+        this.usedWeight = usedWeight;
+    }
+
 }

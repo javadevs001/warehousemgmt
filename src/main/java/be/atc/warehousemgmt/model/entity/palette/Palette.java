@@ -1,8 +1,6 @@
 package be.atc.warehousemgmt.model.entity.palette;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
-import be.atc.warehousemgmt.model.entity.delivery.Vehicle;
-import be.atc.warehousemgmt.model.entity.orders.Orders;
 
 import javax.persistence.*;
 
@@ -13,19 +11,15 @@ import javax.persistence.*;
 @Entity
 public class Palette extends AbstractAuditingEntity {
 
+    @Transient
+    transient public static final Integer PALETTE_HEIGHT_CM = 100;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long paletteId;
-
-    @ManyToOne
-    @JoinColumn
-    private Vehicle vehicle;
-    @ManyToOne
-    @JoinColumn
-    private Orders orders;
-    @ManyToOne
-    @JoinColumn
-    private PaletteType paletteType;
+    @Column
+    private String type;
+    private Integer surface;
+    private Integer paletteCount;
 
     public Palette() {
     }
@@ -38,27 +32,27 @@ public class Palette extends AbstractAuditingEntity {
         this.paletteId = paletteId;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public String getType() {
+        return type;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public PaletteType getPaletteType() {
-        return paletteType;
+    public Integer getSurface() {
+        return surface;
     }
 
-    public void setPaletteType(PaletteType paletteType) {
-        this.paletteType = paletteType;
+    public void setSurface(Integer surface) {
+        this.surface = surface;
     }
 
-    public Orders getOrders() {
-        return orders;
+    public Integer getPaletteCount() {
+        return paletteCount;
     }
 
-    public void setOrders(Orders orders) {
-        this.orders = orders;
+    public void setPaletteCount(Integer paletteCount) {
+        this.paletteCount = paletteCount;
     }
 }

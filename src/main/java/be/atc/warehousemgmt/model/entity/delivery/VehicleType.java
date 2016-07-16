@@ -14,11 +14,14 @@ public class VehicleType extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long vehicleTypeId;
-
+    @Column
+    private String label;
     @Column
     private Double surface;
     @Column
     private Double maximumWeight;
+    @Column
+    private Double threshold;
 
     public Long getVehicleTypeId() {
         return vehicleTypeId;
@@ -42,5 +45,21 @@ public class VehicleType extends AbstractAuditingEntity {
 
     public void setSurface(Double surface) {
         this.surface = surface;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Double getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Double threshold) {
+        this.threshold = threshold;
     }
 }

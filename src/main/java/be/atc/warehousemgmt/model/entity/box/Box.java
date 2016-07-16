@@ -1,7 +1,6 @@
 package be.atc.warehousemgmt.model.entity.box;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
-import be.atc.warehousemgmt.model.entity.palette.Palette;
 
 import javax.persistence.*;
 
@@ -16,13 +15,11 @@ public class Box extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long boxId;
 
-    @ManyToOne
-    @JoinColumn
-    private BoxType boxType;
-
-    @ManyToOne
-    @JoinColumn
-    private Palette palette;
+    @Column(unique = true)
+    private String label;
+    private Integer height;
+    private Integer width;
+    private Integer length;
 
     public Box() {
     }
@@ -35,19 +32,36 @@ public class Box extends AbstractAuditingEntity {
         this.boxId = boxId;
     }
 
-    public BoxType getBoxType() {
-        return boxType;
+    public String getLabel() {
+        return label;
     }
 
-    public void setBoxType(BoxType boxType) {
-        this.boxType = boxType;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Palette getPalette() {
-        return palette;
+    public Integer getHeight() {
+        return height;
     }
 
-    public void setPalette(Palette palette) {
-        this.palette = palette;
+    public void setHeight(Integer height) {
+        this.height = height;
     }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
 }

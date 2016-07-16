@@ -2,6 +2,7 @@ package be.atc.warehousemgmt.model.entity.catalog;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 import be.atc.warehousemgmt.model.entity.Person;
+import be.atc.warehousemgmt.model.entity.box.Box;
 
 import javax.persistence.*;
 
@@ -34,6 +35,9 @@ public class Article extends AbstractAuditingEntity {
 
     @ManyToOne
     private Person person;
+    @ManyToOne
+    @JoinColumn
+    private Box box;
 
     public Article() {
     }
@@ -156,5 +160,13 @@ public class Article extends AbstractAuditingEntity {
 
     public void setArchived(boolean archived) {
         this.archived = archived;
+    }
+
+    public Box getBox() {
+        return box;
+    }
+
+    public void setBox(Box box) {
+        this.box = box;
     }
 }

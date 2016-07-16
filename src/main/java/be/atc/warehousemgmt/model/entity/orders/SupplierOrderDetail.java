@@ -20,6 +20,8 @@ public class SupplierOrderDetail extends AbstractAuditingEntity {
     private Article article;
     @Column
     private Integer quantity;
+    @Enumerated(EnumType.STRING)
+    private SupplierOrderDetailType supplierOrderDetailType;
 
     public SupplierOrderDetail() {
     }
@@ -46,5 +48,13 @@ public class SupplierOrderDetail extends AbstractAuditingEntity {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public SupplierOrderDetailType getSupplierOrderDetailType() {
+        return supplierOrderDetailType;
+    }
+
+    public void setSupplierOrderDetailType(SupplierOrderDetailType supplierOrderDetailType) {
+        this.supplierOrderDetailType = supplierOrderDetailType;
     }
 }

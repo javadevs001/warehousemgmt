@@ -1,7 +1,6 @@
 package be.atc.warehousemgmt.model.entity.delivery;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
-import be.atc.warehousemgmt.model.entity.Person;
 
 import javax.persistence.*;
 
@@ -14,36 +13,22 @@ public class Delivery extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long locationId;
-
-    @ManyToOne
-    @JoinColumn
-    private Person person;
-
+    private Long deliveryId;
     @ManyToOne
     @JoinColumn
     private Vehicle vehicle;
-
-    @Column
-    private String label;
+    @Enumerated(EnumType.STRING)
+    private DeliveryState deliveryState;
 
     public Delivery() {
     }
 
-    public Long getLocationId() {
-        return locationId;
+    public Long getDeliveryId() {
+        return deliveryId;
     }
 
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setDeliveryId(Long deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
     public Vehicle getVehicle() {
@@ -54,11 +39,11 @@ public class Delivery extends AbstractAuditingEntity {
         this.vehicle = vehicle;
     }
 
-    public String getLabel() {
-        return label;
+    public DeliveryState getDeliveryState() {
+        return deliveryState;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setDeliveryState(DeliveryState deliveryState) {
+        this.deliveryState = deliveryState;
     }
 }
