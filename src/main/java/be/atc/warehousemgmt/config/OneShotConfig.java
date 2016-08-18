@@ -80,7 +80,7 @@ public class OneShotConfig {
     public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() throws FileNotFoundException {
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         /* TODO CHANGE */
-        ppc.setLocation(new InputStreamResource(new FileInputStream(new File("/Users/ahmedidoumhaidi/IdeaProjects/warehousemgmt/src/main/resources/" + "config/" + System.getenv("env") + "/warehousemgmt.properties"))));
+        ppc.setLocation(new InputStreamResource(new FileInputStream(new File("/Users/mikelcromphoudt/IdeaProjects/warehousemgmt/src/main/resources/" + "config/" + System.getenv("env") + "/warehousemgmt.properties"))));
         return ppc;
     }
 }

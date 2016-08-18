@@ -8,9 +8,12 @@ import be.atc.warehousemgmt.model.entity.orders.Orders;
 import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.PersonService;
 import be.atc.warehousemgmt.model.service.SupplierOrderService;
+import be.atc.warehousemgmt.web.controller.bean.OrderDetailStatusBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderDetailBean;
 import be.atc.warehousemgmt.web.controller.validator.SupplierOrderValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +34,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/SupplierOrderController/")
 public class SupplierOrderController {
+
+    private static Logger logger = LoggerFactory.getLogger(SupplierOrderController.class);
 
     @Inject
     private SupplierOrderService supplierOrderService;
@@ -75,6 +80,7 @@ public class SupplierOrderController {
     public String getSupplierOrderDetail(Model model, @RequestParam Long supplierOrderId) {
         Orders orders = supplierOrderService.findSupplierOrders(supplierOrderId);
         List<OrderDetail> orderDetails = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(orders);
+        model.addAttribute("orderDetailStatusBean", new OrderDetailStatusBean());
         model.addAttribute("supplierOrder", orders);
         model.addAttribute("supplierOrderDetails", orderDetails.stream().map(SupplierOrderDetailBean::of).collect(Collectors.toList()));
         return "supplierOrderDetail";
@@ -102,6 +108,22 @@ public class SupplierOrderController {
         Orders orders = supplierOrderService.findSupplierOrders(supplierOrderDetailBean.getSupplierOrderId());
         Article article = articleService.findArticleById(supplierOrderDetailBean.getArticle());
         OrderDetail orderDetail = supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailBean.prepareForCreation(article, orders));
+        return "redirect:getSupplierOrderTable";
+    }
+
+    /**
+     * @Mikel
+     */
+
+    @RequestMapping(value = "changeOrderDetailState", method = RequestMethod.POST)
+    public String changeOrderDetailState(@ModelAttribute OrderDetailStatusBean orderDetailStatusBean) {
+        OrderDetail supplierOrderDetailById = supplierOrderService.findSupplierOrderDetailById(orderDetailStatusBean.getOrderDetailIdModal());
+        /**
+         supplierOrderDetailById.setOrderDetailState(OrderDetailState.valueOf(orderDetailStatusBean.getOrderDetailState()));
+         supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailById); **/
+
+        logger.debug("", supplierOrderDetailById);
+        logger.debug("", orderDetailStatusBean.getOrderDetailState());
         return "redirect:getSupplierOrderTable";
     }
 

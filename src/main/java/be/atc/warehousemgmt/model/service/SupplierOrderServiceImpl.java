@@ -41,6 +41,11 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
     }
 
     @Override
+    public OrderDetail findSupplierOrderDetailById(Long orderDetailId) {
+        return orderDetailRepository.findOne(orderDetailId);
+    }
+
+    @Override
     public OrderDetail saveSupplierOrdersDetail(OrderDetail orderDetail) {
         return orderDetailRepository.save(orderDetail);
     }

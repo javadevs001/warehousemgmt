@@ -3,6 +3,20 @@
  */
 $(document).ready(function () {
 
+    $('.ui.modal')
+        .modal()
+    ;
+
+    $("#changeState").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var orderDetailId = $(this).data("orderdetailid");
+        console.log(orderDetailId);
+        $("#orderDetailIdModal").val(orderDetailId);
+        $('#changeStateModal')
+            .modal('show')
+        ;
+    });
 
     var supplierOrderDetailTable;
 

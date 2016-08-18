@@ -16,6 +16,8 @@ public interface SupplierOrderService {
 
     Orders findSupplierOrders(Long ordersId);
 
+    OrderDetail findSupplierOrderDetailById(Long orderDetailId);
+
     OrderDetail saveSupplierOrdersDetail(OrderDetail orderDetail);
 
     List<OrderDetail> findAllSupplierOrderDetailBySupplierOrder(Orders orders);

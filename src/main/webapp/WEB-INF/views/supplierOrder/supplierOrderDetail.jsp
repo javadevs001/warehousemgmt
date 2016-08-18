@@ -185,6 +185,10 @@
                                                 <a href=""
                                                    class="item"><i
                                                         class="edit icon"></i>Modifier</a>
+                                                <a data-orderdetailid="${supplierOrderDetail.supplierOrderDetailId}"
+                                                   id="changeState" href=""
+                                                   class="item"><i
+                                                        class="edit icon"></i>Status</a>
                                             </div>
                                         </div>
                                     </div>
@@ -199,6 +203,25 @@
     </div>
 </div>
 
+
+<div id="changeStateModal" class="ui modal">
+    <i class="close icon"></i>
+    <form:form action="changeOrderDetailState" method="post" commandName="orderDetailStatusBean">
+        <div class="header">
+            Changer le status du détail commande
+        </div>
+        <div class="content">
+            <div class="description">
+                <form:hidden path="orderDetailIdModal"/>
+                <form:input path="orderDetailState"/>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button">Cancel</div>
+            <button type="submit" class="ui button">OK</button>
+        </div>
+    </form:form>
+</div>
 
 
 
