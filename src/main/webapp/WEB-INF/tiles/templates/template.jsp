@@ -49,6 +49,32 @@
 </c:forEach>
 
 
+<div id="deleteOrderModal" class="ui basic modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Supprimer une commande
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="description">
+            <p>Êtes-vous sûr de vouloir supprimer cette commande ?</p>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="two fluid ui inverted buttons">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                Non
+            </div>
+            <div class="ui green basic ok inverted button">
+                <i class="checkmark icon"></i>
+                Oui
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 

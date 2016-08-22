@@ -25,7 +25,7 @@
         <div class="ui column grid stackable doubling centered container segment">
 
             <div class="ui horizontal divider">
-                Commandes pour fournisseurs
+                <i class="icon table link"></i>Tableau des commandes pour fournisseurs
             </div>
 
             <div class="row">
@@ -52,7 +52,8 @@
                             <div class="ui items" style="padding-left: 40px;padding-right: 40px;">
                                 <div class="ui item">
                                     <a href="<c:url value="/SupplierOrderController/getAddSupplierOrderForm"/>"
-                                       class="ui teal button fluid">Ajouter une nouvelle commande</a>
+                                       class="ui teal button fluid"><i class="icon plus link"></i>Ajouter une nouvelle
+                                        commande</a>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +63,7 @@
 
             <div class="row">
                 <div class="column">
-                    <table id="bankAccountDataTable"
+                    <table id="supplierOrdersTable"
                            class="ui teal table"
                            cellspacing="0" width="100%">
                         <thead>
@@ -85,20 +86,22 @@
                                 <td>${supplierOrderBean.lastModifiedDate}</td>
                                 <td>${supplierOrderBean.lastModifiedBy}</td>
                                 <td>${supplierOrderBean.supplierCompanyName}</td>
-                                <td>${supplierOrderBean.state}</td>
-                                <td>${supplierOrderBean.priority}</td>
+                                <td><s:message code="orders.state.${supplierOrderBean.state}.label"/></td>
+                                <td><s:message code="orders.priority.${supplierOrderBean.priority}.label"/></td>
 
                                 <td style="text-align: center;">
-                                    <div class="ui basic buttons">
-                                        <div class="ui button">Action</div>
-                                        <div class="ui combo top right pointing dropdown icon button">
-                                            <i class="dropdown icon"></i>
-                                            <div class="menu">
-                                                <a href="#" class="item"><i class="edit icon"></i>Modifier</a>
-                                                <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetail?supplierOrderId=${supplierOrderBean.ordersId}"/>"
-                                                   class="item"><i class="eye icon"></i>Plus d'infos</a>
-                                            </div>
-                                        </div>
+                                    <div class="ui small basic icon buttons">
+                                        <a data-content="Détails"
+                                           href="<c:url value="/SupplierOrderController/getSupplierOrderDetail?supplierOrderId=${supplierOrderBean.ordersId}"/>"
+                                           class="ui button"><i class="eye icon"></i></a>
+                                        <a data-content="Modifier"
+                                           href="<c:url value="/SupplierOrderController/getAddSupplierOrderForm?supplierOrderId=${supplierOrderBean.ordersId}"/>"
+                                           class="ui button"><i class="edit icon"></i></a>
+                                        <a data-content="Supprimer" data-ordersid="${supplierOrderBean.ordersId}"
+                                           class="ui button deleteSupplierOrderSelector"><i class="trash icon"></i></a>
+                                        <a data-content="Télécharger le bon de commande"
+                                           href="<c:url value="/api/secured/SupplierOrderRestController/getSupplierOrderDocument?supplierOrderId=${supplierOrderBean.ordersId}"/>"
+                                           class="ui button" target="_blank"><i class="download icon"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -110,8 +113,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 

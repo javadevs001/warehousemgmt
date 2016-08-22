@@ -19,10 +19,12 @@
 
 <form:form action="saveSupplierOrder" method="post" commandName="supplierOrderBean" class="ui form">
 
+    <form:hidden path="updateCase"/>
+
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-                ${not empty supplierOrderBean.ordersId ? "Modifier " : "Nouvelle "}
+                ${supplierOrderBean.updateCase ? "Modifier " : "Nouvelle "}
             Commande pour fournisseur
         </div>
 
@@ -39,7 +41,7 @@
                 <s:bind path="personId">
                     <div class="field ${status.error ? 'error' : ''}">
                         <label class="label">Fournisseur</label>
-                        <div class="ui selection dropdown">
+                        <div class="ui selection dropdown ${supplierOrderBean.updateCase ? 'disabled' : ''}">
                             <form:input type="hidden" path="personId"/>
                             <i class="dropdown icon"></i>
                             <div class="default text">Fournisseur</div>
@@ -67,7 +69,7 @@
                             <div class="menu">
                                 <c:forEach items="${priorities}" var="priority">
                                     <div class="item" data-value="${priority}">
-                                            ${priority}
+                                        <s:message code="orders.priority.${priority}.label"/>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -85,8 +87,8 @@
 
         <div class="ui segment" style="text-align: center;">
             <div class="ui buttons aligned right">
-                <a href="#"
-                   type="reset" class="ui button"><s:message code="button.back.message"/></a>
+                <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>" class="ui button"><s:message
+                        code="button.back.message"/></a>
                 <div class="or" data-text="ou"></div>
                 <button type="submit" class="ui blue button"><s:message code="button.submit.message"/></button>
             </div>

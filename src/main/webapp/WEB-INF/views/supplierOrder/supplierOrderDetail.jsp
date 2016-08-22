@@ -28,80 +28,45 @@
 
             <div class="ui three column grid centered stackable doubling container">
 
-                <div class="column">
-                    <div class="ui segment padded center aligned">
-                        <div class="ui top attached blue label">Créer le</div>
-                        <div class="ui items content">
-                            <div class="item">
-                                <div class="content">
-                                    <div class="header">
-                                        <c:out value="${supplierOrder.createdDate}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="twelve wide tablet eight wide computer column">
+                    <table class="ui definition table teal">
+                        <tbody>
+                        <tr>
+                            <td>Créer le</td>
+                            <td><c:out value="${supplierOrder.createdDate}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Créer par</td>
+                            <td>
+                                <c:out value="${supplierOrder.createdBy}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fournisseur</td>
+                            <td>
+                                <c:out value="${supplierOrder.supplierCompanyName}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="column">
-                    <div class="ui segment padded center aligned">
-                        <div class="ui top attached blue label">Créer par</div>
-                        <div class="ui items content">
-                            <div class="item">
-                                <div class="content">
-                                    <div class="header">
-                                        <c:out value="${supplierOrder.createdBy}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="column">
-                    <div class="ui segment padded center aligned">
-                        <div class="ui top attached blue label">Fournisseur</div>
-                        <div class="ui items content">
-                            <div class="item">
-                                <div class="content">
-                                    <div class="header">
-                                        <c:out value="${supplierOrder.person.companyName}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column">
-                    <div class="ui segment padded center aligned">
-                        <div class="ui top attached blue label">Etat</div>
-                        <div class="ui items content">
-                            <div class="item">
-                                <div class="content">
-                                    <div class="header">
-                                        <c:out value="${supplierOrder.state}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column">
-                    <div class="ui segment padded center aligned">
-                        <div class="ui top attached blue label">Priorité</div>
-                        <div class="ui items content">
-                            <div class="item">
-                                <div class="content">
-                                    <div class="header">
-                                        <c:out value="${supplierOrder.priority}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="twelve wide tablet eight wide computer column">
+                    <table class="ui definition table teal">
+                        <tbody>
+                        <tr>
+                            <td>Etat</td>
+                            <td><s:message code="orders.state.${supplierOrder.state}.label"/></td>
+                        </tr>
+                        <tr>
+                            <td>Priorité</td>
+                            <td>
+                                <s:message code="orders.priority.${supplierOrder.priority}.label"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -113,7 +78,7 @@
         <div class="ui column grid stackable doubling centered container segment">
 
             <div class="ui horizontal divider">
-                Les lignes de commande fournisseur
+                <i class="icon table link"></i>Tableau des lignes de commande pour fournisseur
             </div>
 
             <div class="row">
@@ -175,18 +140,14 @@
                                 <td><c:out value='${supplierOrderDetail.updatedBy}'/></td>
                                 <td><c:out value='${supplierOrderDetail.articleLabel}'/></td>
                                 <td><c:out value='${supplierOrderDetail.quantity}'/></td>
-                                <td><c:out value='${supplierOrderDetail.state}'/></td>
+                                <td><s:message code="ordersDetail.state.${supplierOrderDetail.state}.label"/></td>
                                 <td style="text-align: center;">
-                                    <div class="ui basic buttons">
-                                        <div class="ui button">Action</div>
-                                        <div class="ui combo top right pointing dropdown icon button">
-                                            <i class="dropdown icon"></i>
-                                            <div class="menu">
-                                                <a href=""
-                                                   class="item"><i
-                                                        class="edit icon"></i>Modifier</a>
-                                            </div>
-                                        </div>
+                                    <div class="ui small basic icon buttons">
+                                        <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetailForm?supplierOrdersId=${supplierOrderDetail.supplierOrderId}&supplierOrderDetailId=${supplierOrderDetail.supplierOrderDetailId}"/>"
+                                           class="ui button"><i class="edit icon"></i></a>
+                                        <a data-orderdetailid="${supplierOrderDetail.supplierOrderDetailId}"
+                                           class="ui button deleteOrderDetailModalSelector"><i
+                                                class="trash icon"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -200,6 +161,32 @@
 </div>
 
 
+<div id="deleteOrderDetailModal" class="ui basic modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Supprimer une ligne de commande
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="description">
+            <p>Êtes-vous sûr de vouloir supprimer ce détail de commande?</p>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="two fluid ui inverted buttons">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                Non
+            </div>
+            <div class="ui green basic ok inverted button">
+                <i class="checkmark icon"></i>
+                Oui
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

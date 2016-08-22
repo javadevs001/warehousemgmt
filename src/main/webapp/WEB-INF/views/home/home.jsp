@@ -44,7 +44,7 @@
                                     Consultation et Ajout/Modification des commandes fournisseurs.
                                 </div>
                             </div>
-                            <a href="<c:url value="/SupplierOrderController/getSupplierOrderTable"/>"
+                            <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>"
                                class="ui bottom attached button blue">
                                 <i class="eye icon"></i>
                                 Consulter

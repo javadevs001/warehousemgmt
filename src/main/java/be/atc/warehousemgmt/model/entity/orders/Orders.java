@@ -16,18 +16,26 @@ public class Orders extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ordersId;
+
     @ManyToOne
     @JoinColumn
     private Delivery delivery;
+
     @Enumerated(EnumType.STRING)
     private OrderState state;
+
     @Enumerated(EnumType.STRING)
     private OrderPriority priority;
+
     @Enumerated(EnumType.STRING)
     private OrderType type;
+
     @ManyToOne
     @JoinColumn
     private Person person;
+
+    @Column
+    private boolean archived;
 
     public Orders() {
     }
@@ -38,14 +46,6 @@ public class Orders extends AbstractAuditingEntity {
 
     public void setOrdersId(Long ordersId) {
         this.ordersId = ordersId;
-    }
-
-    public OrderType getType() {
-        return type;
-    }
-
-    public void setType(OrderType type) {
-        this.type = type;
     }
 
     public OrderPriority getPriority() {
@@ -72,11 +72,27 @@ public class Orders extends AbstractAuditingEntity {
         this.delivery = delivery;
     }
 
+    public OrderType getType() {
+        return type;
+    }
+
+    public void setType(OrderType type) {
+        this.type = type;
+    }
+
     public Person getPerson() {
         return person;
     }
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 }

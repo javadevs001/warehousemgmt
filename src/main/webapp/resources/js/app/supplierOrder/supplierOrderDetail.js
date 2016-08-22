@@ -3,11 +3,11 @@
  */
 $(document).ready(function () {
 
-
     var supplierOrderDetailTable;
 
     initSupplierOrderDetailTable();
     initSupplierOrderDetailSearch();
+    initDeleteOrderDetailModalSelector();
 
     function initSupplierOrderDetailSearch() {
         $('#supplierOrderDetailSearch').on('keyup', function (e) {
@@ -25,6 +25,7 @@ $(document).ready(function () {
             "bLengthChange": false,
             "bFilter": true,
             "bInfo": false,
+            "pageLength": 4,
             "bAutoWidth": true,
             "language": {
                 "decimal": ",",
@@ -40,6 +41,40 @@ $(document).ready(function () {
                     "sPrevious": "Précédent"
                 }
             }
+        });
+    }
+
+    function initDeleteOrderDetailModalSelector() {
+        $('#supplierOrderDetailTable').on('click', '.deleteOrderDetailModalSelector', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var orderdetailid = $(this).data("orderdetailid");
+            $('#deleteOrderDetailModal')
+                .modal({
+                    closable: false,
+                    onDeny: function () {
+                        $('#deleteOrderDetailModal').modal("hide");
+                        return false;
+                    },
+                    onApprove: function () {
+                        $('#deleteOrderDetailModal').modal("hide");
+                        var callBack = $.ajax({
+                            url: ctx + '/api/secured/SupplierOrderRestController/deleteOrderDetail/' + orderdetailid,
+                            async: true,
+                            method: 'POST'
+                        });
+
+                        callBack.done(function (response) {
+                            location.reload();
+                        });
+
+                        callBack.fail(function (error) {
+                            handleAjaxError(error);
+                        });
+                    }
+                })
+                .modal('show')
+            ;
         });
     }
 

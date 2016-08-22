@@ -24,6 +24,7 @@ public class SupplierOrderBean {
     private String lastModifiedDate;
     private String lastModifiedBy;
     private Long personId;
+    private boolean updateCase;
 
     public static SupplierOrderBean of(Orders orders) {
         SupplierOrderBean supplierOrderBean = new SupplierOrderBean();
@@ -36,6 +37,7 @@ public class SupplierOrderBean {
         supplierOrderBean.setLastModifiedBy(orders.getLastModifiedBy());
         supplierOrderBean.setCreatedDate(orders.getCreatedDate().format(formatter));
         supplierOrderBean.setLastModifiedDate(orders.getLastModifiedDate().format(formatter));
+        supplierOrderBean.setPersonId(orders.getPerson() != null ? orders.getPerson().getPersonId() : null);
         return supplierOrderBean;
     }
 
@@ -126,5 +128,13 @@ public class SupplierOrderBean {
 
     public void setPersonId(Long personId) {
         this.personId = personId;
+    }
+
+    public boolean isUpdateCase() {
+        return updateCase;
+    }
+
+    public void setUpdateCase(boolean updateCase) {
+        this.updateCase = updateCase;
     }
 }

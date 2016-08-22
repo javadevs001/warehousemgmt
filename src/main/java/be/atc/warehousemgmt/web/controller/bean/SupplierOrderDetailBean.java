@@ -2,6 +2,7 @@ package be.atc.warehousemgmt.web.controller.bean;
 
 import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
+import be.atc.warehousemgmt.model.entity.orders.OrderDetailState;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
 
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ public class SupplierOrderDetailBean {
     private String createdBy;
     private String updatedBy;
     private String articleLabel;
+    private boolean updateCase;
 
     public SupplierOrderDetailBean() {
     }
@@ -45,9 +47,14 @@ public class SupplierOrderDetailBean {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrders(orders);
         orderDetail.setArticle(article);
-        orderDetail.setArticle(article);
         orderDetail.setQuantity(getQuantity());
+        orderDetail.setOrderDetailState(OrderDetailState.WAIT_FOR_STOCK);
         return orderDetail;
+    }
+
+    public OrderDetail prepareForUpdate(OrderDetail supplierOrderDetail) {
+        supplierOrderDetail.setQuantity(getQuantity());
+        return supplierOrderDetail;
     }
 
     public Long getSupplierOrderDetailId() {
@@ -129,5 +136,13 @@ public class SupplierOrderDetailBean {
 
     public void setArticleLabel(String articleLabel) {
         this.articleLabel = articleLabel;
+    }
+
+    public boolean isUpdateCase() {
+        return updateCase;
+    }
+
+    public void setUpdateCase(boolean updateCase) {
+        this.updateCase = updateCase;
     }
 }

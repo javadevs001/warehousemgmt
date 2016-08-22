@@ -20,11 +20,13 @@
 <form:form action="saveSupplierOrderDetail" method="post" commandName="supplierOrderDetailBean" class="ui form">
 
     <form:hidden path="supplierOrderId"/>
+    <form:hidden path="supplierOrderDetailId"/>
+    <form:hidden path="updateCase"/>
 
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-            Nouvelle ligne de commande pour fournisseur
+                ${supplierOrderDetailBean.updateCase ? 'Modifier' : 'Nouvelle' } ligne de commande pour fournisseur
         </div>
 
         <s:hasBindErrors name="supplierOrderDetailBean">
@@ -40,7 +42,7 @@
                 <s:bind path="article">
                     <div class="field ${status.error ? 'error' : ''}">
                         <label class="label">Article</label>
-                        <div class="ui selection dropdown">
+                        <div class="ui selection dropdown ${supplierOrderDetailBean.updateCase ? 'disabled' : ''}">
                             <form:input type="hidden" path="article"/>
                             <i class="dropdown icon"></i>
                             <div class="default text">Article</div>
@@ -74,8 +76,8 @@
 
         <div class="ui segment" style="text-align: center;">
             <div class="ui buttons aligned right">
-                <a href="#"
-                   type="reset" class="ui button"><s:message code="button.back.message"/></a>
+                <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetail?supplierOrderId=${supplierOrderDetailBean.supplierOrderId}"/>"
+                   class="ui button"><s:message code="button.back.message"/></a>
                 <div class="or" data-text="ou"></div>
                 <button type="submit" class="ui blue button"><s:message code="button.submit.message"/></button>
             </div>
