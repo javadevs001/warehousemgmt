@@ -1,9 +1,10 @@
 package be.atc.warehousemgmt.web.controller.validator;
 
-import be.atc.warehousemgmt.model.entity.orders.OrderPriority;
-import be.atc.warehousemgmt.model.entity.orders.OrderState;
-import be.atc.warehousemgmt.model.entity.orders.OrderType;
+import be.atc.warehousemgmt.model.entity.catalog.Article;
+import be.atc.warehousemgmt.model.entity.orders.*;
+import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.PersonService;
+import be.atc.warehousemgmt.model.service.SupplierOrderService;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderDetailBean;
 import org.apache.commons.lang.StringUtils;
@@ -12,16 +13,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 
 import javax.inject.Inject;
+import java.util.Optional;
 
 
 /**
  * Created by ahmedidoumhaidi on 13/07/16.
  */
+
 @Component
 public class SupplierOrderValidator {
 
     @Inject
     private PersonService personService;
+    @Inject
+    private SupplierOrderService supplierOrderService;
+    @Inject
+    private ArticleService articleService;
 
     public void validateSupplierOrder(SupplierOrderBean supplierOrderBean, BindingResult errors) {
 
@@ -33,6 +40,10 @@ public class SupplierOrderValidator {
 
         if (!validateOrdersPriority(supplierOrderBean.getPriority())) {
             errors.rejectValue("priority", "", null, "La priorité est invalide");
+        }
+
+        if (!validateOrdersState(supplierOrderBean.getState())) {
+            errors.rejectValue("state", "", null, "Le statut est invalide");
         }
 
     }
@@ -65,7 +76,33 @@ public class SupplierOrderValidator {
     }
 
     public void validateSupplierOrderDetailBean(SupplierOrderDetailBean supplierOrderDetailBean, BindingResult errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "quantity", "", "La quantité est invalide");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "article", "", "Le choix de l'article est obligatoire");
+
+        if (!validateOrderQuantity(supplierOrderDetailBean.getQuantity())) {
+            errors.rejectValue("quantity", "", "La quantité est invalide");
+        }
+
+        if (!errors.hasErrors() && supplierOrderDetailBean.getSupplierOrderDetailId() == null) {
+            if (orderDetailExist(supplierOrderDetailBean))
+                errors.rejectValue("article", "", null, "Il existe déja une ligne de commande pour cette article.");
+        }
     }
+
+    private boolean validateOrderQuantity(String quantity) {
+        if (StringUtils.isBlank(quantity)) return false;
+        try {
+            Integer.valueOf(quantity);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean orderDetailExist(SupplierOrderDetailBean supplierOrderDetailBean) {
+        Orders supplierOrders = supplierOrderService.findSupplierOrders(supplierOrderDetailBean.getSupplierOrderId());
+        Article article = articleService.findArticleById(supplierOrderDetailBean.getArticle());
+        Optional<OrderDetail> orderDetailByOrdersAndArticle = supplierOrderService.findOrderDetailByOrdersAndArticle(supplierOrders, article);
+        return orderDetailByOrdersAndArticle.isPresent();
+    }
+
 }

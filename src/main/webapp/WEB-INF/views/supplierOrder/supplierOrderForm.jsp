@@ -19,10 +19,13 @@
 
 <form:form action="saveSupplierOrder" method="post" commandName="supplierOrderBean" class="ui form">
 
+    <form:hidden path="updateCase"/>
+    <form:hidden path="ordersId"/>
+
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-                ${not empty supplierOrderBean.ordersId ? "Modifier " : "Nouvelle "}
+                ${supplierOrderBean.updateCase ? "Modifier " : "Nouvelle "}
             Commande pour fournisseur
         </div>
 
@@ -34,29 +37,29 @@
 
         <div class="ui segment">
 
-            <div class="two fields">
 
-                <s:bind path="personId">
-                    <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Fournisseur</label>
-                        <div class="ui selection dropdown">
-                            <form:input type="hidden" path="personId"/>
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Fournisseur</div>
-                            <div class="menu">
-                                <c:forEach items="${persons}" var="person">
-                                    <div class="item" data-value="${person.personId}">
-                                            ${person.companyName}
-                                    </div>
-                                </c:forEach>
-                            </div>
+            <s:bind path="personId">
+                <div class="field ${status.error ? 'error' : ''}">
+                    <label class="label">Fournisseur</label>
+                    <div class="ui selection dropdown ${supplierOrderBean.updateCase ? 'disabled' : ''}">
+                        <form:input type="hidden" path="personId"/>
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Fournisseur</div>
+                        <div class="menu">
+                            <c:forEach items="${persons}" var="person">
+                                <div class="item" data-value="${person.personId}">
+                                        ${person.companyName}
+                                </div>
+                            </c:forEach>
                         </div>
-                        <c:if test="${status.error}">
-                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
-                        </c:if>
                     </div>
-                </s:bind>
+                    <c:if test="${status.error}">
+                        <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                    </c:if>
+                </div>
+            </s:bind>
 
+            <div class="two fields">
                 <s:bind path="priority">
                     <div class="field ${status.error ? 'error' : ''}">
                         <label class="label">Priorité</label>
@@ -67,7 +70,7 @@
                             <div class="menu">
                                 <c:forEach items="${priorities}" var="priority">
                                     <div class="item" data-value="${priority}">
-                                            ${priority}
+                                        <s:message code="orders.priority.${priority}.label"/>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -78,15 +81,36 @@
                     </div>
                 </s:bind>
 
-            </div>
+                <s:bind path="state">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">Statut</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="state"/>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Statut</div>
+                            <div class="menu">
+                                <div class="item" data-value="TO_TREAT">
+                                    <s:message code="orders.state.TO_TREAT.label"/>
+                                </div>
+                                <div class="item" data-value="PENDING">
+                                    <s:message code="orders.state.PENDING.label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
 
+            </div>
 
         </div>
 
         <div class="ui segment" style="text-align: center;">
             <div class="ui buttons aligned right">
-                <a href="#"
-                   type="reset" class="ui button"><s:message code="button.back.message"/></a>
+                <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>" class="ui button"><s:message
+                        code="button.back.message"/></a>
                 <div class="or" data-text="ou"></div>
                 <button type="submit" class="ui blue button"><s:message code="button.submit.message"/></button>
             </div>

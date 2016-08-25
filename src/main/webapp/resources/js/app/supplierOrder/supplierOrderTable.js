@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     initSupplierOrdersTable();
     initSupplierOrdersSeatch();
+    initDeleteOrderModalSelector();
 
     function initSupplierOrdersSeatch() {
         $('#supplierOrderSearch').on('keyup', function (e) {
@@ -20,12 +21,11 @@ $(document).ready(function () {
 
     function initSupplierOrdersTable() {
         supplierOrdersTable = $("#supplierOrdersTable").DataTable({
-            "responsive": true,
-            "bPaginate": true,
+            responsive: true,
+            "searching": true,
+            "stateSave": false,
+            "pageLength": 4,
             "bLengthChange": false,
-            "bFilter": true,
-            "bInfo": false,
-            "bAutoWidth": true,
             "language": {
                 "decimal": ",",
                 "thousands": ".",
@@ -40,6 +40,40 @@ $(document).ready(function () {
                     "sPrevious": "Précédent"
                 }
             }
+        });
+    }
+
+    function initDeleteOrderModalSelector() {
+        $('#supplierOrdersTable').on('click', ".deleteSupplierOrderSelector", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var ordersId = $(this).data("ordersid");
+            $('#deleteOrderModal')
+                .modal({
+                    closable: false,
+                    onDeny: function () {
+                        $('#deleteOrderModal').modal("hide");
+                        return false;
+                    },
+                    onApprove: function () {
+                        $('#deleteOrderModal').modal("hide");
+                        var callBack = $.ajax({
+                            url: ctx + '/api/secured/SupplierOrderRestController/deleteSupplierOrder/' + ordersId,
+                            async: true,
+                            method: 'POST'
+                        });
+
+                        callBack.done(function (response) {
+                            location.reload();
+                        });
+
+                        callBack.fail(function (error) {
+                            handleAjaxError(error);
+                        });
+                    }
+                })
+                .modal('show')
+            ;
         });
     }
 
