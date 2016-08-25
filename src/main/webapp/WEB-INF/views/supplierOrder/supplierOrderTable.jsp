@@ -73,7 +73,7 @@
                             <th>Date de la dernière Màj</th>
                             <th>Màj par</th>
                             <th>Fournisseur</th>
-                            <th>Statut</th>
+                            <th>État</th>
                             <th>Proirité</th>
                             <th>Actions</th>
                         </tr>

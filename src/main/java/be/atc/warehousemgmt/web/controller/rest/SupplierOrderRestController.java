@@ -28,7 +28,8 @@ public class SupplierOrderRestController {
     @RequestMapping(value = "deleteOrderDetail/{supplierOrderDetailId}", method = RequestMethod.POST)
     public ResponseEntity<JSResponse> deleteOrderDetail(@PathVariable Long supplierOrderDetailId) {
         OrderDetail supplierOrderDetailById = supplierOrderService.findSupplierOrderDetailById(supplierOrderDetailId);
-        supplierOrderService.deleteOrderDetail(supplierOrderDetailById);
+        supplierOrderDetailById.setArchived(true);
+        supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailById);
         return new ResponseEntity<>(JSResponse.of(true, "SUCCESS"), HttpStatus.OK);
     }
 
@@ -36,9 +37,11 @@ public class SupplierOrderRestController {
     public ResponseEntity<JSResponse> deleteSupplierOrder(@PathVariable Long supplierOrderId) {
         Orders supplierOrders = supplierOrderService.findSupplierOrders(supplierOrderId);
         supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(supplierOrders).stream().forEach((dd) -> {
-            supplierOrderService.deleteOrderDetail(dd);
+            dd.setArchived(true);
+            supplierOrderService.saveSupplierOrdersDetail(dd);
         });
-        supplierOrderService.deleteSupplierOrder(supplierOrders);
+        supplierOrders.setArchived(true);
+        supplierOrderService.saveSupplierOrder(supplierOrders);
         return new ResponseEntity<>(JSResponse.of(true, "SUCCESS"), HttpStatus.OK);
     }
 
@@ -52,6 +55,4 @@ public class SupplierOrderRestController {
         response.setHeader("Content-Disposition", "filename=\"" + supplierOrderDocumentGenerator.getTargetFile() + "\"");
         return new FileSystemResource(supplierOrderDocumentGenerator.getTargetFile());
     }
-
-
 }

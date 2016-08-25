@@ -40,7 +40,7 @@
 
             <s:bind path="personId">
                 <div class="field ${status.error ? 'error' : ''}">
-                    <label class="label">Fournisseur</label>
+                    <label class="label">Fournisseur *</label>
                     <div class="ui selection dropdown ${supplierOrderBean.updateCase ? 'disabled' : ''}">
                         <form:input type="hidden" path="personId"/>
                         <i class="dropdown icon"></i>
@@ -62,7 +62,7 @@
             <div class="two fields">
                 <s:bind path="priority">
                     <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Priorité</label>
+                        <label class="label">Priorité *</label>
                         <div class="ui selection dropdown">
                             <form:input type="hidden" path="priority"/>
                             <i class="dropdown icon"></i>
@@ -83,7 +83,7 @@
 
                 <s:bind path="state">
                     <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Statut</label>
+                        <label class="label">Statut *</label>
                         <div class="ui selection dropdown">
                             <form:input type="hidden" path="state"/>
                             <i class="dropdown icon"></i>

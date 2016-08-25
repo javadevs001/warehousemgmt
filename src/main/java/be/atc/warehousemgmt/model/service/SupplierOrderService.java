@@ -36,4 +36,7 @@ public interface SupplierOrderService {
 
     void addSupplierOrdersFromSupplierOrderDetailSynchro();
 
+    void saveTheSupplierOrderSynchro(Orders orders, OrderDetail orderDetail, String oldQuantity, String quantityToSet, boolean merged);
+
+
 }

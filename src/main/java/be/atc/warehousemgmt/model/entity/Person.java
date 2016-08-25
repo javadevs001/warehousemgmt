@@ -15,6 +15,7 @@ public class Person extends AbstractAuditingEntity {
 
     @Column(nullable = false, unique = true)
     private String companyName;
+    private String name;
     private String email;
     private String phone;
     private String fax;
@@ -125,5 +126,13 @@ public class Person extends AbstractAuditingEntity {
 
     public void setPersonType(PersonType personType) {
         this.personType = personType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

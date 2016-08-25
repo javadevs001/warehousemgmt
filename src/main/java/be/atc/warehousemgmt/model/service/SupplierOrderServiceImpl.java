@@ -5,6 +5,7 @@ import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.*;
 import be.atc.warehousemgmt.model.repository.OrderDetailRepository;
 import be.atc.warehousemgmt.model.repository.OrdersRepository;
+import be.atc.warehousemgmt.model.repository.SupplierOrderSynchroRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +33,10 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
     private OrderDetailRepository orderDetailRepository;
     @Inject
     private SupplierOrderDetailService supplierOrderDetailService;
+    @Inject
+    private SupplierOrderSynchroRepository supplierOrderSynchroRepository;
 
-    @Scheduled(cron = "0 0 19 1/1 * ?") /* Utiliser le site http://www.cronmaker.com/ pour générer vos CRON */
+    @Scheduled(cron = "0 0/3 * 1/1 * ?") /* Utiliser le site http://www.cronmaker.com/ pour générer vos CRON */
     public void addSupplierOrdersFromSupplierOrderDetailSynchro() {
         List<SupplierOrderDetail> supplierOrderDetails = supplierOrderDetailService.getAll();
         logger.warn("Start new addSupplierOrdersFromSupplierOrderDetailSynchro with supplierOrderDetails size : " + supplierOrderDetails.size());
@@ -42,18 +46,24 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
             List<Orders> orders = ordersRepository.findByPersonAndStateOrderByCreatedDateDesc(person, OrderState.TO_TREAT);
             if (!orders.isEmpty()) {
                 Orders order = orders.get(0);
-                Optional<OrderDetail> orderDetailOptional = orderDetailRepository.findByOrdersAndArticle(order, article);
+                Optional<OrderDetail> orderDetailOptional = orderDetailRepository.findByOrdersAndArticleAndArchivedFalse(order, article);
                 if (orderDetailOptional.isPresent()) {
                     OrderDetail orderDetail = orderDetailOptional.get();
-                    Integer quantityToSet = Integer.valueOf(orderDetail.getQuantity()) + supplierOrderDetail.getQuantity();
+                    String oldQuantity = orderDetail.getQuantity();
+                    Integer quantityToSet = Integer.valueOf(oldQuantity) + supplierOrderDetail.getQuantity();
                     orderDetail.setQuantity(quantityToSet.toString());
-                    orderDetailRepository.save(orderDetail);
+                    orderDetail = orderDetailRepository.save(orderDetail);
+
+                    saveTheSupplierOrderSynchro(order, orderDetail, oldQuantity, quantityToSet.toString(), true);
+
+
                 } else {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setQuantity(supplierOrderDetail.getQuantity().toString());
                     orderDetail.setOrderDetailState(OrderDetailState.WAIT_FOR_STOCK);
                     orderDetail.setOrders(order);
-                    orderDetailRepository.save(orderDetail);
+                    orderDetail = orderDetailRepository.save(orderDetail);
+                    saveTheSupplierOrderSynchro(order, orderDetail, null, supplierOrderDetail.getQuantity().toString(), false);
                 }
             } else {
                 Orders ordersToSave = new Orders();
@@ -63,12 +73,14 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
                 ordersToSave.setType(OrderType.Supplier);
                 ordersToSave = ordersRepository.save(ordersToSave);
 
+
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setOrders(ordersToSave);
                 orderDetail.setArticle(article);
                 orderDetail.setQuantity(supplierOrderDetail.getQuantity().toString());
                 orderDetail.setOrderDetailState(OrderDetailState.WAIT_FOR_STOCK);
-                orderDetailRepository.save(orderDetail);
+                orderDetail = orderDetailRepository.save(orderDetail);
+                saveTheSupplierOrderSynchro(ordersToSave, orderDetail, null, supplierOrderDetail.getQuantity().toString(), false);
             }
         }
 
@@ -77,6 +89,18 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
         }
 
         logger.warn("End of addSupplierOrdersFromSupplierOrderDetailSynchro with supplierOrderDetails size : " + supplierOrderDetails.size());
+    }
+
+
+    public void saveTheSupplierOrderSynchro(Orders orders, OrderDetail orderDetail, String oldQuantity, String quantityToSet, boolean merged) {
+        SupplierOrderSynchro supplierOrderSynchro = new SupplierOrderSynchro();
+        supplierOrderSynchro.setQuantity(quantityToSet);
+        supplierOrderSynchro.setOldQuantity(oldQuantity);
+        supplierOrderSynchro.setMerged(merged);
+        supplierOrderSynchro.setOrdersId(orders.getOrdersId());
+        supplierOrderSynchro.setOrderDetailId(orderDetail.getOrderDetailId());
+        supplierOrderSynchro.setSynchroDateTime(LocalDateTime.now());
+        supplierOrderSynchroRepository.save(supplierOrderSynchro);
     }
 
     @Override
@@ -111,7 +135,7 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
 
     @Override
     public Optional<OrderDetail> findOrderDetailByOrdersAndArticle(Orders supplierOrders, Article article) {
-        return orderDetailRepository.findByOrdersAndArticle(supplierOrders, article);
+        return orderDetailRepository.findByOrdersAndArticleAndArchivedFalse(supplierOrders, article);
     }
 
     @Override
