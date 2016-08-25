@@ -23,6 +23,12 @@
 
     <div class="row">
         <div class="ui segment container padded">
+
+            <div class="ui small basic icon buttons">
+                <a data-content="Vérification"
+                   class="ui button checkSupplierOrderSelector"><i class="check icon"></i></a>
+            </div>
+
             <div class="ui horizontal divider">
                 <i class="icon info"></i>Détails de la commande fournisseur N° ${supplierOrder.ordersId}
             </div>
@@ -155,6 +161,11 @@
                                            data-orderdetailid="${supplierOrderDetail.supplierOrderDetailId}"
                                            class="ui button deleteOrderDetailModalSelector"><i
                                                 class="trash icon"></i></a>
+
+                                        <a data-content="Vérification"
+                                           href="<c:url value="/SupplierOrderController/getSupplierOrderDetailCheckForm?orderDetailId=${supplierOrderDetail.supplierOrderDetailId}"/>"
+                                           class="ui button"><i
+                                                class="check icon"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -195,7 +206,43 @@
     </div>
 </div>
 
+<div id="checkOrderModal" class="ui basic modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Vérification de la commande
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="description">
+            <form:form id="checkSupplierOrder" action="checkSupplierOrder" method="post"
+                       commandName="checkSupplierOrderBean" class="ui form">
+                <form:hidden path="ordersId"/>
+                <div class="field">
+                    <label class="label" style="color:white;">Statut *</label>
+                    <form:select path="state" class="ui dropdown fluid" id="select">
+                        <form:option value="DELIVERED">Livré</form:option>
+                        <form:option value="PARTIALLY_DELIVERED">Livré partiellement</form:option>
+                    </form:select>
+                </div>
 
+            </form:form>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="two fluid ui inverted buttons">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                Non
+            </div>
+            <div class="ui green basic ok inverted button">
+                <i class="checkmark icon"></i>
+                Oui
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

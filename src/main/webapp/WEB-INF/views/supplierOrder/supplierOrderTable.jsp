@@ -108,6 +108,7 @@
                                         <a data-content="Télécharger le bon de commande"
                                            href="<c:url value="/api/secured/SupplierOrderRestController/getSupplierOrderDocument?supplierOrderId=${supplierOrderBean.ordersId}"/>"
                                            class="ui button" target="_blank"><i class="download icon"></i></a>
+
                                     </div>
                                 </td>
                             </tr>

@@ -8,6 +8,7 @@ $(document).ready(function () {
     initSupplierOrderDetailTable();
     initSupplierOrderDetailSearch();
     initDeleteOrderDetailModalSelector();
+    initCheckOrderDetailModalSelector();
 
     function initSupplierOrderDetailSearch() {
         $('#supplierOrderDetailSearch').on('keyup', function (e) {
@@ -77,5 +78,30 @@ $(document).ready(function () {
             ;
         });
     }
+
+
+    function initCheckOrderDetailModalSelector() {
+        $('.checkSupplierOrderSelector').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('#checkOrderModal')
+                .modal({
+                    closable: false,
+                    onDeny: function () {
+                        $('#checkOrderModal').modal("hide");
+                        return false;
+                    },
+                    onApprove: function () {
+                        $('#checkOrderModal').modal("hide");
+                        $("#checkSupplierOrder").submit();
+                    }
+                })
+                .modal('show')
+            ;
+        });
+    }
+
+
+
 
 });

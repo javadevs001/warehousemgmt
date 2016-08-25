@@ -4,11 +4,12 @@ import be.atc.warehousemgmt.model.entity.Person;
 import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
 import be.atc.warehousemgmt.model.entity.orders.OrderPriority;
+import be.atc.warehousemgmt.model.entity.orders.OrderState;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
 import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.PersonService;
 import be.atc.warehousemgmt.model.service.SupplierOrderService;
-import be.atc.warehousemgmt.web.controller.bean.OrderDetailStatusBean;
+import be.atc.warehousemgmt.web.controller.bean.CheckSupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderDetailBean;
 import be.atc.warehousemgmt.web.controller.validator.SupplierOrderValidator;
@@ -92,6 +93,7 @@ public class SupplierOrderController {
     public String getSupplierOrderDetail(Model model, @RequestParam Long supplierOrderId) {
         Orders orders = supplierOrderService.findSupplierOrders(supplierOrderId);
         List<OrderDetail> orderDetails = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(orders);
+        model.addAttribute("checkSupplierOrderBean", CheckSupplierOrderBean.of(orders));
         model.addAttribute("supplierOrder", SupplierOrderBean.of(orders));
         model.addAttribute("supplierOrderDetails", orderDetails.stream().filter((d) -> !d.isArchived()).map(SupplierOrderDetailBean::of).collect(Collectors.toList()));
         return "supplierOrderDetail";
@@ -137,16 +139,34 @@ public class SupplierOrderController {
      * @Mikel
      */
 
-    @RequestMapping(value = "changeOrderDetailState", method = RequestMethod.POST)
-    public String changeOrderDetailState(@ModelAttribute OrderDetailStatusBean orderDetailStatusBean) {
-        OrderDetail supplierOrderDetailById = supplierOrderService.findSupplierOrderDetailById(orderDetailStatusBean.getOrderDetailIdModal());
-        /**
-         supplierOrderDetailById.setOrderDetailState(OrderDetailState.valueOf(orderDetailStatusBean.getOrderDetailState()));
-         supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailById); **/
+    @RequestMapping(value = "getSupplierOrderDetailCheckForm", method = RequestMethod.GET)
+    public String getSupplierOrderDetailCheckForm(@RequestParam Long orderDetailId, Model model) {
+        OrderDetail supplierOrderDetail = supplierOrderService.findSupplierOrderDetailById(orderDetailId);
+        model.addAttribute("supplierOrderDetailBean", SupplierOrderDetailBean.prepareForCheck(supplierOrderDetail));
+        return "supplierOrderDetailCheck";
+    }
 
-        logger.debug("", supplierOrderDetailById);
-        logger.debug("", orderDetailStatusBean.getOrderDetailState());
-        return "redirect:getSupplierOrderTable";
+    @RequestMapping(value = "supplierOrderDetailCheck", method = RequestMethod.POST)
+    public String supplierOrderDetailCheck(@ModelAttribute SupplierOrderDetailBean supplierOrderDetailBean, BindingResult errors, RedirectAttributes redirectAttributes) {
+        supplierOrderValidator.validateForCheck(supplierOrderDetailBean, errors);
+        if (errors.hasErrors()) {
+            return "supplierOrderDetailCheck";
+        }
+
+        OrderDetail supplierOrderDetailById = supplierOrderService.findSupplierOrderDetailById(supplierOrderDetailBean.getSupplierOrderDetailId());
+        supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailBean.performForCheck(supplierOrderDetailById));
+        redirectAttributes.addAttribute("supplierOrderId", supplierOrderDetailById.getOrders().getOrdersId());
+        return "redirect:getSupplierOrderDetail";
+    }
+
+    @RequestMapping(value = "checkSupplierOrder", method = RequestMethod.POST)
+    public String checkSupplierOrder(@ModelAttribute CheckSupplierOrderBean checkSupplierOrderBean, RedirectAttributes redirectAttributes) {
+        Long ordersId = checkSupplierOrderBean.getOrdersId();
+        Orders supplierOrders = supplierOrderService.findSupplierOrders(ordersId);
+        supplierOrders.setState(OrderState.valueOf(checkSupplierOrderBean.getState()));
+        supplierOrderService.saveSupplierOrder(supplierOrders);
+        redirectAttributes.addAttribute("supplierOrderId", ordersId);
+        return "redirect:getSupplierOrderDetail";
     }
 
 }

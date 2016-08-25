@@ -17,18 +17,24 @@ public class OrderDetail extends AbstractAuditingEntity {
     private Long orderDetailId;
     @Column
     private String quantity;
+
     @ManyToOne
     @JoinColumn
     private Orders orders;
+
     @ManyToOne
     @JoinColumn
     private Article article;
+
     @Enumerated(EnumType.STRING)
     private OrderDetailState orderDetailState;
+
     @Column
     private boolean archived;
-    @Column
+
+    @Column(columnDefinition = "text")
     private String comments;
+
     @Column
     private String quantityReceived;
 

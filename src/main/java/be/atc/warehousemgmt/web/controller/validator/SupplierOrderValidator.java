@@ -30,6 +30,18 @@ public class SupplierOrderValidator {
     @Inject
     private ArticleService articleService;
 
+    public void validateForCheck(SupplierOrderDetailBean supplierOrderDetailBean, BindingResult errors) {
+        String quantityReceived = supplierOrderDetailBean.getQuantityReceived();
+        if (!validateOrderQuantity(quantityReceived)) {
+            errors.rejectValue("quantityReceived", "", null, "La quantité reçu est invalide");
+        }
+
+        if (!validateOrdersState(supplierOrderDetailBean.getState())) {
+            errors.rejectValue("state", "", null, "La statut est invalide");
+        }
+
+    }
+
     public void validateSupplierOrder(SupplierOrderBean supplierOrderBean, BindingResult errors) {
 
         Long personId = supplierOrderBean.getPersonId();

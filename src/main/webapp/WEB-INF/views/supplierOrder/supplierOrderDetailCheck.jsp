@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div id="menu" class="ui stackable small menu">
     <a href="<c:url value='/HomeController/getHomeView'/>" class="item"><i class="home link icon"></i></a>
@@ -17,17 +16,14 @@
 <div class="ui horizontal divider hidden"></div>
 <div class="ui horizontal divider hidden"></div>
 
-<form:form action="saveSupplierOrderDetail" method="post" commandName="supplierOrderDetailBean" class="ui form">
+<form:form action="supplierOrderDetailCheck" commandName="supplierOrderDetailBean" method="post" class="ui form">
 
-    <form:hidden path="supplierOrderId"/>
     <form:hidden path="supplierOrderDetailId"/>
-    <form:hidden path="updateCase"/>
-
 
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-                ${supplierOrderDetailBean.updateCase ? 'Modifier' : 'Nouvelle' } ligne de commande pour fournisseur
+            Vérification de la ligne de commande N° ${supplierOrderDetailId}
         </div>
 
         <s:hasBindErrors name="supplierOrderDetailBean">
@@ -40,19 +36,20 @@
 
             <div class="two fields">
 
-                <s:bind path="article">
+                <s:bind path="state">
                     <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Article</label>
-                        <div class="ui selection dropdown ${supplierOrderDetailBean.updateCase ? 'disabled' : ''}">
-                            <form:input type="hidden" path="article"/>
+                        <label class="label">Statut *</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="state"/>
                             <i class="dropdown icon"></i>
-                            <div class="default text">Article *</div>
+                            <div class="default text">Statut</div>
                             <div class="menu">
-                                <c:forEach items="${articles}" var="article">
-                                    <div class="item" data-value="${article.articleId}">
-                                            ${article.label}
-                                    </div>
-                                </c:forEach>
+                                <div class="item" data-value="DELIVERED">
+                                    <s:message code="orders.state.DELIVERED.label"/>
+                                </div>
+                                <div class="item" data-value="PARTIALLY_DELIVERED">
+                                    <s:message code="orders.state.PARTIALLY_DELIVERED.label"/>
+                                </div>
                             </div>
                         </div>
                         <c:if test="${status.error}">
@@ -61,10 +58,10 @@
                     </div>
                 </s:bind>
 
-                <s:bind path="quantity">
+                <s:bind path="quantityReceived">
                     <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Quantité *</label>
-                        <form:input path="quantity" type="text" placeholder="La quantité"/>
+                        <label class="label">Quantité reçu *</label>
+                        <form:input path="quantityReceived" type="text" placeholder="La quantité reçu *"/>
                         <c:if test="${status.error}">
                             <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
                         </c:if>
@@ -72,6 +69,16 @@
                 </s:bind>
 
             </div>
+
+            <s:bind path="comments">
+                <div class="field ${status.error ? 'error' : ''}">
+                    <label class="label">Observations</label>
+                    <form:textarea path="comments" type="text" rows="5" placeholder="Observations"/>
+                    <c:if test="${status.error}">
+                        <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                    </c:if>
+                </div>
+            </s:bind>
 
         </div>
 
@@ -85,4 +92,6 @@
         </div>
 
     </div>
+
+
 </form:form>
