@@ -42,6 +42,10 @@ public class SupplierOrderValidator {
             errors.rejectValue("priority", "", null, "La priorité est invalide");
         }
 
+        if (!validateOrdersState(supplierOrderBean.getState())) {
+            errors.rejectValue("state", "", null, "Le statut est invalide");
+        }
+
     }
 
     private boolean validateOrdersState(String state) {

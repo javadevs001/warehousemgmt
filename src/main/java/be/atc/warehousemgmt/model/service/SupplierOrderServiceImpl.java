@@ -33,15 +33,16 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
     private SupplierOrderDetailService supplierOrderDetailService;
 
     @Scheduled(cron = "0 0 19 1/1 * ?") /* Utiliser le site http://www.cronmaker.com/ pour générer vos CRON */
-    private void addSupplierOrdersFromSupplierOrderDetailSynchro() {
+    public void addSupplierOrdersFromSupplierOrderDetailSynchro() {
         List<SupplierOrderDetail> supplierOrderDetails = supplierOrderDetailService.getAll();
         logger.warn("Start new addSupplierOrdersFromSupplierOrderDetailSynchro with supplierOrderDetails size : " + supplierOrderDetails.size());
         for (SupplierOrderDetail supplierOrderDetail : supplierOrderDetails) {
             Article article = supplierOrderDetail.getArticle();
             Person person = article.getPerson();
-            Optional<Orders> orders = ordersRepository.findByPersonAndState(person, OrderState.TO_TREAT);
-            if (orders.isPresent()) {
-                Optional<OrderDetail> orderDetailOptional = orderDetailRepository.findByOrdersAndArticle(orders.get(), article);
+            List<Orders> orders = ordersRepository.findByPersonAndStateOrderByCreatedDateDesc(person, OrderState.TO_TREAT);
+            if (!orders.isEmpty()) {
+                Orders order = orders.get(0);
+                Optional<OrderDetail> orderDetailOptional = orderDetailRepository.findByOrdersAndArticle(order, article);
                 if (orderDetailOptional.isPresent()) {
                     OrderDetail orderDetail = orderDetailOptional.get();
                     Integer quantityToSet = Integer.valueOf(orderDetail.getQuantity()) + supplierOrderDetail.getQuantity();
@@ -51,7 +52,7 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setQuantity(supplierOrderDetail.getQuantity().toString());
                     orderDetail.setOrderDetailState(OrderDetailState.WAIT_FOR_STOCK);
-                    orderDetail.setOrders(orders.get());
+                    orderDetail.setOrders(order);
                     orderDetailRepository.save(orderDetail);
                 }
             } else {
@@ -70,6 +71,11 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
                 orderDetailRepository.save(orderDetail);
             }
         }
+
+        for (SupplierOrderDetail supplierOrderDetail : supplierOrderDetails) {
+            supplierOrderDetailService.delete(supplierOrderDetail);
+        }
+
         logger.warn("End of addSupplierOrdersFromSupplierOrderDetailSynchro with supplierOrderDetails size : " + supplierOrderDetails.size());
     }
 

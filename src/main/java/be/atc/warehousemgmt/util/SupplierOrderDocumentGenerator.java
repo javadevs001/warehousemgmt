@@ -1,5 +1,6 @@
 package be.atc.warehousemgmt.util;
 
+import be.atc.warehousemgmt.model.entity.Person;
 import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
@@ -63,9 +64,15 @@ public class SupplierOrderDocumentGenerator {
     public void generateContent(Orders orders, List<OrderDetail> orderDetails) throws JAXBException, Docx4JException {
         HashMap<String, String> data = new HashMap<>();
         String totalPriceTtc = "";
+        Person person = orders.getPerson();
         data.put("today", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         data.put("createdDate", orders.getCreatedDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         data.put("reference", orders.getOrdersId().toString());
+
+        data.put("companyname", person.getCompanyName());
+        data.put("street", person.getAddressStreet() + " " + person.getAddressNumber());
+        data.put("city", person.getAddressCity());
+        data.put("postalcode", person.getAddressPostCode());
 
         Tbl t_ordersDetailTable = getTableByName("T_ordersDetailTable");
 

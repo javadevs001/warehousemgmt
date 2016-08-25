@@ -46,7 +46,13 @@ public class SupplierOrderBean {
         orders.setPerson(person);
         orders.setPriority(OrderPriority.valueOf(getPriority()));
         orders.setType(OrderType.Supplier);
-        orders.setState(OrderState.TO_TREAT);
+        orders.setState(OrderState.valueOf(getState()));
+        return orders;
+    }
+
+    public Orders prepareForUpdate(Orders orders) {
+        orders.setPriority(OrderPriority.valueOf(getPriority()));
+        orders.setState(OrderState.valueOf(getState()));
         return orders;
     }
 
@@ -137,4 +143,5 @@ public class SupplierOrderBean {
     public void setUpdateCase(boolean updateCase) {
         this.updateCase = updateCase;
     }
+
 }

@@ -34,4 +34,6 @@ public interface SupplierOrderService {
 
     void deleteSupplierOrder(Orders supplierOrders);
 
+    void addSupplierOrdersFromSupplierOrderDetailSynchro();
+
 }

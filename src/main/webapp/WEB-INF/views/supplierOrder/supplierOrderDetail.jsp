@@ -8,8 +8,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div id="menu" class="ui stackable small menu">
-    <a href="<c:url value='/HomeController/getHomeView'/>" class="item" data-content="Accueil"><i
-            class="home link icon"></i></a>
+    <a href="<c:url value='/SupplierOrderController/getSupplierOrdersTable'/>" class="item"
+       data-content="Listes des commandes"><i
+            class="arrow left link icon"></i></a>
     <div class="right menu">
         <a href="<c:url value="/j_spring_security_logout"/>" class="item" data-content="Déconnexion"><i
                 class="sign out link icon"></i></a>
@@ -23,7 +24,7 @@
     <div class="row">
         <div class="ui segment container padded">
             <div class="ui horizontal divider">
-                Commande fournisseur
+                <i class="icon info"></i>Détails de la commande fournisseur N° ${supplierOrder.ordersId}
             </div>
 
             <div class="ui three column grid centered stackable doubling container">
@@ -78,7 +79,7 @@
         <div class="ui column grid stackable doubling centered container segment">
 
             <div class="ui horizontal divider">
-                <i class="icon table link"></i>Tableau des lignes de commande pour fournisseur
+                <i class="icon table link"></i>Les lignes de la commande
             </div>
 
             <div class="row">
@@ -106,7 +107,8 @@
                             <div class="ui items" style="padding-left: 40px;padding-right: 40px;">
                                 <div class="ui item">
                                     <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetailForm?supplierOrdersId=${supplierOrder.ordersId}"/>"
-                                       class="ui blue button fluid">Ajouter une ligne de commande</a>
+                                       class="ui blue button fluid"><i class="icon plus link"></i>Ajouter une ligne de
+                                        commande</a>
                                 </div>
                             </div>
                         </div>
@@ -143,9 +145,14 @@
                                 <td><s:message code="ordersDetail.state.${supplierOrderDetail.state}.label"/></td>
                                 <td style="text-align: center;">
                                     <div class="ui small basic icon buttons">
-                                        <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetailForm?supplierOrdersId=${supplierOrderDetail.supplierOrderId}&supplierOrderDetailId=${supplierOrderDetail.supplierOrderDetailId}"/>"
-                                           class="ui button"><i class="edit icon"></i></a>
-                                        <a data-orderdetailid="${supplierOrderDetail.supplierOrderDetailId}"
+
+                                        <a data-content="Modifier"
+                                           href="<c:url value="/SupplierOrderController/getSupplierOrderDetailForm?supplierOrdersId=${supplierOrderDetail.supplierOrderId}&supplierOrderDetailId=${supplierOrderDetail.supplierOrderDetailId}"/>"
+                                           class="ui button ${supplierOrderDetail.state == 'DELIVERED' ? 'disabled' : ''}"><i
+                                                class="edit icon"></i></a>
+
+                                        <a data-content="Supprimer"
+                                           data-orderdetailid="${supplierOrderDetail.supplierOrderDetailId}"
                                            class="ui button deleteOrderDetailModalSelector"><i
                                                 class="trash icon"></i></a>
                                     </div>

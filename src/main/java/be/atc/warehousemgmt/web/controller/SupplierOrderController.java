@@ -71,8 +71,14 @@ public class SupplierOrderController {
             return "supplierOrderForm";
         }
 
+        Orders orders = null;
         Person person = personService.findPersonById(supplierOrderBean.getPersonId());
-        Orders orders = supplierOrderService.saveSupplierOrder(supplierOrderBean.prepareForCreation(person));
+        if (supplierOrderBean.getOrdersId() != null && supplierOrderService.supplierOrderExist(supplierOrderBean.getOrdersId())) {
+            Orders supplierOrders = supplierOrderService.findSupplierOrders(supplierOrderBean.getOrdersId());
+            orders = supplierOrderService.saveSupplierOrder(supplierOrderBean.prepareForUpdate(supplierOrders));
+        } else {
+            orders = supplierOrderService.saveSupplierOrder(supplierOrderBean.prepareForCreation(person));
+        }
         redirectAttributes.addAttribute("supplierOrderId", orders.getOrdersId());
         return "redirect:/SupplierOrderController/getSupplierOrderDetail";
     }

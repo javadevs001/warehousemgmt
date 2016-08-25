@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by ahmedidoumhaidi on 12/07/16.
@@ -16,5 +15,5 @@ import java.util.Optional;
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findAllByType(@Param("supplier") OrderType supplier);
 
-    Optional<Orders> findByPersonAndState(Person person, OrderState orderState);
+    List<Orders> findByPersonAndStateOrderByCreatedDateDesc(Person person, OrderState orderState);
 }
