@@ -128,8 +128,8 @@
                             <th>Date de mise à jour</th>
                             <th>Màj par</th>
                             <th>Article</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
+                            <th>Quantité</th>
+                            <th>État</th>
                             <th>Actions</th>
                         </tr>
                         </thead>

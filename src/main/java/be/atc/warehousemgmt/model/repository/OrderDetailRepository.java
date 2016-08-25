@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
     List<OrderDetail> findAllByOrders(Orders orders);
 
-    Optional<OrderDetail> findByOrdersAndArticle(Orders supplierOrders, Article article);
+    Optional<OrderDetail> findByOrdersAndArticleAndArchivedFalse(Orders supplierOrders, Article article);
 }

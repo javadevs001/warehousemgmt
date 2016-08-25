@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 /**
  * Created by ahmedidoumhaidi on 9/07/16.
- */
+ **/
 
 @Entity
 public class OrderDetail extends AbstractAuditingEntity {
@@ -25,6 +25,12 @@ public class OrderDetail extends AbstractAuditingEntity {
     private Article article;
     @Enumerated(EnumType.STRING)
     private OrderDetailState orderDetailState;
+    @Column
+    private boolean archived;
+    @Column
+    private String comments;
+    @Column
+    private String quantityReceived;
 
     public OrderDetail() {
     }
@@ -67,5 +73,29 @@ public class OrderDetail extends AbstractAuditingEntity {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
+
+    public String getQuantityReceived() {
+        return quantityReceived;
+    }
+
+    public void setQuantityReceived(String quantityReceived) {
+        this.quantityReceived = quantityReceived;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

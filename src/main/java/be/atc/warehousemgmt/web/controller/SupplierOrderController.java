@@ -43,7 +43,7 @@ public class SupplierOrderController {
 
     @RequestMapping(value = "getSupplierOrdersTable", method = RequestMethod.GET)
     public String getSupplierOrdersTable(Model model) {
-        List<SupplierOrderBean> supplierOrderBeen = supplierOrderService.getAllSupplierOrders().stream().map(SupplierOrderBean::of).collect(Collectors.toList());
+        List<SupplierOrderBean> supplierOrderBeen = supplierOrderService.getAllSupplierOrders().stream().filter((d) -> !d.isArchived()).map(SupplierOrderBean::of).collect(Collectors.toList());
         model.addAttribute("supplierOrderBeen", supplierOrderBeen);
         return "supplierOrderTable";
     }
@@ -88,7 +88,7 @@ public class SupplierOrderController {
         Orders orders = supplierOrderService.findSupplierOrders(supplierOrderId);
         List<OrderDetail> orderDetails = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(orders);
         model.addAttribute("supplierOrder", SupplierOrderBean.of(orders));
-        model.addAttribute("supplierOrderDetails", orderDetails.stream().map(SupplierOrderDetailBean::of).collect(Collectors.toList()));
+        model.addAttribute("supplierOrderDetails", orderDetails.stream().filter((d) -> !d.isArchived()).map(SupplierOrderDetailBean::of).collect(Collectors.toList()));
         return "supplierOrderDetail";
     }
 
