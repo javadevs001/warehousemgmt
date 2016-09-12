@@ -12,6 +12,7 @@ import be.atc.warehousemgmt.model.service.SupplierOrderService;
 import be.atc.warehousemgmt.web.controller.bean.CheckSupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderBean;
 import be.atc.warehousemgmt.web.controller.bean.SupplierOrderDetailBean;
+import be.atc.warehousemgmt.web.controller.bean.SupplierOrderSynchroBean;
 import be.atc.warehousemgmt.web.controller.validator.SupplierOrderValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,6 +134,13 @@ public class SupplierOrderController {
         }
         redirectAttributes.addAttribute("supplierOrderId", orders.getOrdersId());
         return "redirect:/SupplierOrderController/getSupplierOrderDetail";
+    }
+
+    @RequestMapping(value = "getOrdersSynchroTable", method = RequestMethod.GET)
+    public String getOrdersSynchroTable(Model model) {
+        List<SupplierOrderSynchroBean> supplierOrderSynchroBeanList = supplierOrderService.getAllSupplierOrdersSynchronized().stream().map(SupplierOrderSynchroBean::of).collect(Collectors.toList());
+        model.addAttribute("supplierOrderSynchroBeanList", supplierOrderSynchroBeanList);
+        return "supplierOrderSynchroTable";
     }
 
     /**

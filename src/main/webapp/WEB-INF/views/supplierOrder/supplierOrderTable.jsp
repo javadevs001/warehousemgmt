@@ -11,11 +11,13 @@
     <a href="<c:url value='/HomeController/getHomeView'/>" class="item" data-content="Accueil"><i
             class="home link icon"></i></a>
     <div class="right menu">
+        <a href="<c:url value="/SupplierOrderController/getOrdersSynchroTable"/>" class="item"
+           data-content="Consulter l'historique des synchronisations"><i
+                class="table link icon"></i>Synchronisations</a>
         <a href="<c:url value="/j_spring_security_logout"/>" class="item" data-content="Déconnexion"><i
                 class="sign out link icon"></i></a>
     </div>
 </div>
-
 
 <div class="ui horizontal divider hidden"></div>
 
@@ -25,7 +27,7 @@
         <div class="ui column grid stackable doubling centered container segment">
 
             <div class="ui horizontal divider">
-                <i class="icon table link"></i>Commandes pour fournisseurs
+                <i class="icon table link"></i>Commandes fournisseur
             </div>
 
             <div class="row">

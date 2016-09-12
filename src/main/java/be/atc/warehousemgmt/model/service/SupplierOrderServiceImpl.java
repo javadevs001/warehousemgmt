@@ -47,7 +47,7 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
             if (!orders.isEmpty()) {
                 Orders order = orders.get(0);
                 Optional<OrderDetail> orderDetailOptional = orderDetailRepository.findByOrdersAndArticleAndArchivedFalse(order, article);
-                if (orderDetailOptional.isPresent()) {
+                if (orderDetailOptional.isPresent() && !orderDetailOptional.get().getOrderDetailState().equals(OrderDetailState.DELIVERED)) {
                     OrderDetail orderDetail = orderDetailOptional.get();
                     String oldQuantity = orderDetail.getQuantity();
                     Integer quantityToSet = Integer.valueOf(oldQuantity) + supplierOrderDetail.getQuantity();
@@ -101,6 +101,11 @@ public class SupplierOrderServiceImpl implements SupplierOrderService {
         supplierOrderSynchro.setOrderDetailId(orderDetail.getOrderDetailId());
         supplierOrderSynchro.setSynchroDateTime(LocalDateTime.now());
         supplierOrderSynchroRepository.save(supplierOrderSynchro);
+    }
+
+    @Override
+    public List<SupplierOrderSynchro> getAllSupplierOrdersSynchronized() {
+        return supplierOrderSynchroRepository.findAll();
     }
 
     @Override

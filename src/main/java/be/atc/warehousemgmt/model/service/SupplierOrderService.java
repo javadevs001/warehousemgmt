@@ -3,6 +3,7 @@ package be.atc.warehousemgmt.model.service;
 import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
+import be.atc.warehousemgmt.model.entity.orders.SupplierOrderSynchro;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,5 +39,5 @@ public interface SupplierOrderService {
 
     void saveTheSupplierOrderSynchro(Orders orders, OrderDetail orderDetail, String oldQuantity, String quantityToSet, boolean merged);
 
-
+    List<SupplierOrderSynchro> getAllSupplierOrdersSynchronized();
 }

@@ -14,7 +14,6 @@
         <anonymous enabled="true"/>
 
         <intercept-url pattern="/api/secured/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
-
         <intercept-url pattern="/LoginController/getLoginView/**" access="permitAll"/>
         <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
         <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
