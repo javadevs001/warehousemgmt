@@ -25,7 +25,7 @@ public class AddSupplierOrdersOneShot {
         ArticleService articleService = applicationContext.getBean(ArticleService.class);
 
         Person person = new Person();
-        person.setCompanyName("Delhaise");
+        person.setCompanyName("Carrefour");
         person.setPersonType(PersonType.Supplier);
         personService.savePerson(person);
 
@@ -36,16 +36,22 @@ public class AddSupplierOrdersOneShot {
         orders.setType(OrderType.Supplier);
         supplierOrderService.saveSupplierOrder(orders);
 
-        Article article = new Article();
-        article.setPerson(person);
-        article.setBuyingUnitPrice(10d);
-        article.setDescription("Aucun description pour l'instant");
-        article.setLabel("Coca cola");
-        article.setPackageQuantity(1);
-        article.setSellingUnitPrice(13d);
-        article.setVolume(5d);
-        article.setDepth(5d);
-        article.setHeight(5d);
-        articleService.saveArticle(article);
+
+        Article article5 = new Article();
+        article5.setPerson(person);
+        article5.setBuyingUnitPrice(40d);
+        article5.setDescription("Aucune description pour l'instant");
+        article5.setLabel("Jack Daniels");
+        article5.setPackageQuantity(6);
+        article5.setSellingUnitPrice(55d);
+        article5.setVolume(11d);
+        article5.setDepth(11d);
+        article5.setHeight(16d);
+        article5.setWeight(14.0);
+        articleService.saveArticle(article5);
+
+
+
+
     }
 }

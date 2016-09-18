@@ -25,6 +25,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findAllByCustomer(Person person) {return articleRepository.findAllByPerson(person);}
+
+    @Override
     public Article saveArticle(Article article) {
         return articleRepository.save(article);
     }
@@ -33,5 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findArticleById(Long article) {
         return articleRepository.findOne(article);
     }
+
+
 
 }

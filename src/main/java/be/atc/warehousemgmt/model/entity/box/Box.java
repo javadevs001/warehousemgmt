@@ -1,6 +1,7 @@
 package be.atc.warehousemgmt.model.entity.box;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.palette.Palette;
 
 import javax.persistence.*;
 
@@ -63,5 +64,6 @@ public class Box extends AbstractAuditingEntity {
     public void setLength(Integer length) {
         this.length = length;
     }
+
 
 }

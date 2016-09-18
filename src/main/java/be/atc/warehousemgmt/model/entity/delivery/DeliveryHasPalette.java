@@ -6,7 +6,7 @@ import be.atc.warehousemgmt.model.entity.palette.Palette;
 import javax.persistence.*;
 
 /**
- * Created by ahmedidoumhaidi on 16/07/16.
+ * Created by Wéry Lionel on 16/07/16.
  */
 
 @Entity

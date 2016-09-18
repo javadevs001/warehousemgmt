@@ -103,6 +103,7 @@ public class SupplierOrderController {
         Article article = articleService.findArticleById(supplierOrderDetailBean.getArticle());
         OrderDetail orderDetail = supplierOrderService.saveSupplierOrdersDetail(supplierOrderDetailBean.prepareForCreation(article, orders));
         return "redirect:getSupplierOrderTable";
-    }
+
+            }
 
 }

@@ -5,7 +5,7 @@ import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 import javax.persistence.*;
 
 /**
- * Created by ahmedidoumhaidi on 12/07/16.
+ * Created by Wéry Lionel on 12/07/16.
  */
 
 @Entity

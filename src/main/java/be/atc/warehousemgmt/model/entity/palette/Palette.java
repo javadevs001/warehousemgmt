@@ -1,8 +1,12 @@
 package be.atc.warehousemgmt.model.entity.palette;
 
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
+import be.atc.warehousemgmt.model.entity.box.Box;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import javax.persistence.*;
+
 
 /**
  * Created by ahmedidoumhaidi on 22/05/16.
@@ -16,14 +20,14 @@ public class Palette extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long paletteId;
-    @Column
     private String type;
-    private Integer surface;
+    private Integer surface;  // il faudrait un Double
     private Integer paletteCount;
+
+
 
     public Palette() {
     }
-
     public Long getPaletteId() {
         return paletteId;
     }
@@ -55,4 +59,10 @@ public class Palette extends AbstractAuditingEntity {
     public void setPaletteCount(Integer paletteCount) {
         this.paletteCount = paletteCount;
     }
+
+
+
 }
+
+
+

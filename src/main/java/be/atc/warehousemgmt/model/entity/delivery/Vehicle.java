@@ -3,7 +3,9 @@ package be.atc.warehousemgmt.model.entity.delivery;
 import be.atc.warehousemgmt.model.entity.AbstractAuditingEntity;
 
 import javax.persistence.*;
-
+/**
+ * Created by Wéry Lionel on 16/07/16.
+ */
 
 @Entity
 public class Vehicle extends AbstractAuditingEntity {

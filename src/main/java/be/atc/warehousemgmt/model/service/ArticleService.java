@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface ArticleService {
     List<Article> findAllBySupplier(Person person);
+    List<Article> findAllByCustomer(Person person);
+
     Article saveArticle(Article article);
     Article findArticleById(Long article);
 

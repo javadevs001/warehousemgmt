@@ -10,5 +10,6 @@ import java.util.List;
  * Created by ahmedidoumhaidi on 12/07/16.
  */
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
-    List<Orders> findAllByType(OrderType supplier);
+    //List<Orders> findAllByType(OrderType supplier);
+    List<Orders> findAllByType(OrderType customer);
 }

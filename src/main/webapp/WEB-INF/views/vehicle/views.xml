@@ -15,5 +15,21 @@
             <add-attribute value="app/application.css"/>
         </put-list-attribute>
 
+
+    </definition>
+
+
+    <definition name="VehicleTableView" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/vehicle/VehicleTableView.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+            <add-attribute value="mustache/mustache.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
     </definition>
 </tiles-definitions>

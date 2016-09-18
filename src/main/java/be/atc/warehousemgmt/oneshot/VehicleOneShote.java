@@ -3,11 +3,13 @@ package be.atc.warehousemgmt.oneshot;
 import be.atc.warehousemgmt.config.OneShotConfig;
 import be.atc.warehousemgmt.model.entity.delivery.Vehicle;
 import be.atc.warehousemgmt.model.entity.delivery.VehicleState;
+import be.atc.warehousemgmt.model.entity.delivery.VehicleType;
 import be.atc.warehousemgmt.model.service.VehicleService;
+import be.atc.warehousemgmt.model.service.VehicleTypeService;
 import org.springframework.context.support.AbstractApplicationContext;
 
 /**
- * Created by ahmedidoumhaidi on 16/07/16.
+ * Created  by  Wéry Lionel. on 06/08/2016.
  */
 public class VehicleOneShote {
 
@@ -19,6 +21,10 @@ public class VehicleOneShote {
         vehicle.setVehicleState(VehicleState.AVAILABLE);
         vehicle.setLabel("test");
         vehicleService.saveVehicle(vehicle);
+
     }
 
+
+
 }
+

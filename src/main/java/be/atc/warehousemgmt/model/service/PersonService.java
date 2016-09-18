@@ -13,6 +13,7 @@ public interface PersonService {
     Person savePerson(Person person);
 
     List<Person> getAllSuppliers();
+    List<Person> getAllCustomers();
 
     boolean exists(Long personId);
 

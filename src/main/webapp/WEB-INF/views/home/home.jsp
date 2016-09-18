@@ -50,8 +50,28 @@
                                 Consulter
                             </a>
                         </div>
-                    </div>
+
             </div>
+                <div class="column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="icon file text link"></i>
+                                Gestion des Livraisons et des camions
+                            </div>
+                            <div class="description">
+                                Consultation des livraisons et des statuts des camions ainsi que l'affichage des commandes client
+                            </div>
+                        </div>
+                        <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
+                           class="ui bottom attached button blue">
+                            <i class="eye icon"></i>
+                            Consulter
+                        </a>
+                    </div>
+
+                </div>
+
             <div class="ui hidden divider horizontal"></div>
         </div>
     </div>

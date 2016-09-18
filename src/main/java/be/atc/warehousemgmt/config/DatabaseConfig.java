@@ -42,7 +42,7 @@ public class DatabaseConfig {
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(dataBaseUrl);
         dataSource.setUsername(dataBaseUserName);
-        dataSource.setPassword(dataBasePassword);
+        dataSource.setPassword(dataBasePassword); //si j'enlève cette ligne ça fonctionne...
         return dataSource;
     }
 
@@ -54,7 +54,7 @@ public class DatabaseConfig {
         entityManagerFactoryBean.setPackagesToScan("be.atc.warehousemgmt.model.entity");
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create"); /* Set to create if you want to reinit the database */
+        jpaProperties.put("hibernate.hbm2ddl.auto", "none"); /* Set to create if you want to reinit the database or set to none */
         jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
         jpaProperties.put("hibernate.cache.use_query_cache", "true");
         jpaProperties.put("hibernate.cache.use_second_level_cache", "true");

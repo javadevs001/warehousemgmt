@@ -29,7 +29,8 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> getAllSuppliers() {
         return personRepository.findAllByPersonType(PersonType.Supplier);
     }
-
+    @Override
+    public List<Person> getAllCustomers() {return personRepository.findAllByPersonType(PersonType.Customer);}
     @Override
     public boolean exists(Long personId) {
         return personRepository.exists(personId);

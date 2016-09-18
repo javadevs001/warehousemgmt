@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    List<Person> findAllByPersonType(PersonType supplier);
+   /// List<Person> findAllByPersonType(PersonType supplier);
+    List<Person> findAllByPersonType(PersonType customer);
 
 }
