@@ -63,11 +63,13 @@
                                 Consultation des livraisons et des statuts des camions ainsi que l'affichage des commandes client
                             </div>
                         </div>
-                        <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
-                           class="ui bottom attached button blue">
-                            <i class="eye icon"></i>
-                            Consulter
-                        </a>
+                        <security:authorize access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')">
+                            <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
+                               class="ui bottom attached button blue">
+                                <i class="eye icon"></i>
+                                Consulter
+                            </a>
+                        </security:authorize>
                     </div>
 
                 </div>

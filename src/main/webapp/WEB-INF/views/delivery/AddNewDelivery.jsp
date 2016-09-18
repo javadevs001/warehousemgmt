@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Wéry Lionel
-  Date: 18/09/2016
-  Time: 16:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx" %>
@@ -12,85 +5,150 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div id="menu" class="ui stackable small menu">
-    <a href="<c:url value='/HomeController/getHomeView'/>" class="item" data-content="Accueil"><i
-            class="home link icon"></i></a>
+    <a href="<c:url value='/HomeController/getHomeView'/>" class="item"><i class="home link icon"></i></a>
     <div class="right menu">
-
-        <div class="right menu">
-            <a href="<c:url value="/j_spring_security_logout"/>" class="item" data-content="Déconnexion"><i
-                    class="sign out link icon"></i></a>
-        </div>
-
+        <a href="#" class="item" data-content="Déconnexion"><i class="sign out link icon"></i></a>
     </div>
 </div>
 
 <div class="ui horizontal divider hidden"></div>
+<div class="ui horizontal divider hidden"></div>
 
+<form:form action="saveDelivery" method="post" commandName="deliveryBean" class="ui form">
 
+    <form:hidden path="deliveryId"/>
 
-<div class="row">
-    <div class="ui column grid doubling stackable container">
-        <div class="ui segment container padded">
-            <div class="ui horizontal divider">
-                Commande client
+    <div class="ui centered container segment padded">
+
+        <div class="ui horizontal divider">
+                ${not empty deliveryBean.deliveryId ? "Modifier " : "Nouvelle "}
+            Livraison
+        </div>
+
+        <s:hasBindErrors name="deliveryBean">
+            <div class="ui warning visible message">
+                <p><i class="small warning icon"></i><s:message code="common.form.global.message"/>.</p>
             </div>
-            <div class="row">
-                <div class="column">
+        </s:hasBindErrors>
 
-                    <table class="ui striped table">
-                        <thead>
-                        <tr>
-                            <th>Numéro de commande</th>
-                            <th>Client</th>
-                            <th>Proirité</th>
-                            <th>Type de palette</th>
-                            <th>Nombre de palette</th>
-                            <th>Camion</th>
+        <div class="ui segment">
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>${customerOrder.ordersId}</td>
-                            <td>${customerOrder.person.companyName}</td>
-                            <td>${customerOrder.priority}</td>
-                            <td style="text-align: center;">
-                                <div class="ui basic buttons">
-                                    <div class="ui button">Action</div>
-                                    <div class="ui combo top right pointing dropdown icon button">
-                                        <i class="dropdown icon"></i>
-                                        <div class="menu">
-                                            <a href="#" class="item"><i class="edit icon"></i>Attribuer un type de palette</a>
-                                        </div>
-                                    </div>
+            <div class="three fields">
+                <s:bind path="deliveryState">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">Etat de livraison *</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="deliveryState"/>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Etat de livraison</div>
+                            <div class="menu">
+                                <div class="item" data-value="READY_TO_DELIVER">
+                                    <s:message code="delivery.READY_TO_DELIVER.label"/>
                                 </div>
-                            </td>
-                            <td>
-
-                            </td>
-                            <label class="label">Camion</label>
-                            <div class="ui selection dropdown">
-                                <form:input type="hidden" path="vehicle"/>
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Article</div>
-                                <div class="menu">
-                                    <div class="menu">
-                                        <a href="#" class="item"><i class="edit icon"></i>Attribuer un camion</a>
-                                    </div>
-                                    <c:forEach items="${vehicles}" var="vehicle">
-                                        <div class="item" data-value="${vehicle.vehicleId}">
-                                                ${vehicle.label}
-                                        </div>
-                                    </c:forEach>
+                                <div class="item" data-value="IN_DELIVERING">
+                                    <s:message code="delivery.IN_DELIVERING.label"/>
+                                </div>
+                                <div class="item" data-value="DELIVERED">
+                                    <s:message code="delivery.DELIVERED.label"/>
                                 </div>
                             </div>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        </div>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
+
+                <s:bind path="orderId">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">La commande à livrer</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="orderId"/>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">La commande à livrer</div>
+                            <div class="menu">
+                                <c:forEach items="${orders}" var="order">
+                                    <div class="item" data-value="${order.ordersId}">
+                                            ${order.ordersId}
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
+
+                <s:bind path="vehicleId">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">Camion</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="vehicleId"/>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Camion</div>
+                            <div class="menu">
+                                <c:forEach items="${vehicles}" var="vehicle">
+                                    <div class="item" data-value="${vehicle.vehicleId}">
+                                            ${vehicle.label}
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
+            </div>
+
+            <div class="two fields">
+                <s:bind path="paletteId">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">Type de palette *</label>
+                        <div class="ui selection dropdown">
+                            <form:input type="hidden" path="paletteId"/>
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Type de palette</div>
+                            <div class="menu">
+                                <c:forEach items="${palettes}" var="palette">
+                                    <div class="item" data-value="${palette.paletteId}">
+                                            ${palette.type}
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
+
+                <s:bind path="paletteCount">
+                    <div class="field ${status.error ? 'error' : ''}">
+                        <label class="label">La quantité de palette *</label>
+                        <form:input path="paletteCount" placeholder="Quantité de palette"/>
+                        <c:if test="${status.error}">
+                            <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
+                        </c:if>
+                    </div>
+                </s:bind>
+
+            </div>
+
+        </div>
+
+        <div class="ui segment" style="text-align: center;">
+            <div class="ui buttons aligned right">
+                <a href="<c:url value="/DeliveryController/deliveryTableView"/>" class="ui button"><s:message
+                        code="button.back.message"/></a>
+                <div class="or" data-text="ou"></div>
+                <button type="submit" class="ui blue button"><s:message code="button.submit.message"/></button>
             </div>
         </div>
+
     </div>
-</div>
+</form:form>

@@ -4,7 +4,10 @@ import be.atc.warehousemgmt.config.OneShotConfig;
 import be.atc.warehousemgmt.model.entity.Person;
 import be.atc.warehousemgmt.model.entity.PersonType;
 import be.atc.warehousemgmt.model.entity.catalog.Article;
-import be.atc.warehousemgmt.model.entity.orders.*;
+import be.atc.warehousemgmt.model.entity.orders.OrderPriority;
+import be.atc.warehousemgmt.model.entity.orders.OrderState;
+import be.atc.warehousemgmt.model.entity.orders.OrderType;
+import be.atc.warehousemgmt.model.entity.orders.Orders;
 import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.CustomerOrderService;
 import be.atc.warehousemgmt.model.service.PersonService;
@@ -118,7 +121,7 @@ public class AddCustomerOrder {
         Orders orders = new Orders();
         orders.setPerson(person);
         orders.setPriority(OrderPriority.Urgent);
-        orders.setState(OrderState.TO_TREAT);
+        orders.setState(OrderState.READY_TO_DELIVRED);
         orders.setType(OrderType.Customer);
         customerOrderService.SaveCustomerOrders(orders);
 

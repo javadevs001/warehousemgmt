@@ -10,7 +10,7 @@
 
         <put-list-attribute name="jsNames">
             <add-attribute value="app/application.js"/>
-            <add-attribute value="mustache/mustache.js"/>
+            <add-attribute value="app/delivery/deliveryTable.js"/>
         </put-list-attribute>
 
         <put-list-attribute name="styleNames">
@@ -32,40 +32,12 @@
 
     </definition>
 
-    <definition name="customerOrderTable" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/delivery/customerOrderTable.jsp"/>
 
-        <put-list-attribute name="jsNames">
-            <add-attribute value="app/application.js"/>
-            <add-attribute value="mustache/mustache.js"/>
-        </put-list-attribute>
-
-        <put-list-attribute name="styleNames">
-            <add-attribute value="app/application.css"/>
-        </put-list-attribute>
-
-    </definition>
-
-    <definition name="customerOrderDetail" extends="default">
-        <put-attribute name="body" value="/WEB-INF/views/delivery/customerOrderDetail.jsp"/>
-
-        <put-list-attribute name="jsNames">
-            <add-attribute value="app/application.js"/>
-            <add-attribute value="mustache/mustache.js"/>
-        </put-list-attribute>
-
-        <put-list-attribute name="styleNames">
-            <add-attribute value="app/application.css"/>
-        </put-list-attribute>
-
-    </definition>
-
-    <definition name="AddNewDelivery" extends="default">
+    <definition name="addNewDelivery" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/delivery/AddNewDelivery.jsp"/>
 
         <put-list-attribute name="jsNames">
             <add-attribute value="app/application.js"/>
-            <add-attribute value="mustache/mustache.js"/>
         </put-list-attribute>
 
         <put-list-attribute name="styleNames">

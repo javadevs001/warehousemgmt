@@ -14,7 +14,10 @@
         <anonymous enabled="true"/>
 
         <intercept-url pattern="/LoginController/getLoginView/**" access="permitAll"/>
-        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/DeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/VehicleController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/HomeDeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
 
         <form-login
                 login-page="/LoginController/getLoginView"
@@ -31,7 +34,8 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
-                <user name="admin" password="admin" authorities="ROLE_USER"/>
+                <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+                <user name="lionel" password="lionel" authorities="ROLE_DELIVERY_MANAGER"/>
             </user-service>
         </authentication-provider>
         <authentication-provider ref="daoAuthenticationProvider"/>

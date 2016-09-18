@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface PaletteRepository extends JpaRepository<Palette, Long> {
 
-    List<Palette> findAllByTypePalette();
+    List<Palette> findAllByType(String type);
 
 }

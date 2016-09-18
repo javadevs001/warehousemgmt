@@ -48,6 +48,16 @@ public class VehicleServiceImpl implements VehicleService {
     public VehicleType findVehicleTypeById(Long vehicleTypeId) {
         return vehicleTypeRepository.findOne(vehicleTypeId);
     }
+
+    @Override
+    public Vehicle findByVehicleById(Long vehicleId) {
+        return vehicleRepository.findOne(vehicleId);
+    }
+
+    @Override
+    public boolean exists(Long vehicleId) {
+        return vehicleRepository.exists(vehicleId);
+    }
 }
 
 

@@ -9,9 +9,14 @@ import java.util.List;
  */
 public interface PaletteService {
 
+    List<Palette> getPaletteByType(String type);
 
-    List<Palette> getAllPaletteType();
+    List<Palette> getAllPalette();
 
+    Palette findPaletteById(Long paletteId);
 
+    boolean exists(Long paletteId);
+
+    Palette savePalette(Palette palette);
 
 }

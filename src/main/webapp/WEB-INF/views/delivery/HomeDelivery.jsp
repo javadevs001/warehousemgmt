@@ -72,25 +72,6 @@
                             Consulter
                         </a>
                     </div>
-                    <div class="column">
-                        <div class="ui card">
-                            <div class="content">
-                                <div class="header">
-                                    <i class="icon file text link"></i>
-                                    Affichage des commandes clients.
-                                </div>
-                                <div class="description">
-                                    Consultation des commandes clients.
-                                </div>
-                            </div>
-                            <a href="<c:url value="/CustomerOrderController/getCustomerOrderTable"/>"
-                               class="ui bottom attached button blue">
-                                <i class="eye icon"></i>
-                                Consulter
-                            </a>
-                        </div>
-
-                    </div>
 
                     <div class="ui hidden divider horizontal"></div>
                 </div>

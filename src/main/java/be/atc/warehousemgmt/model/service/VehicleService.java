@@ -18,6 +18,11 @@ public interface VehicleService {
     List<VehicleType> findAllVehicleType();
     List<Vehicle> findAllVehicle();
     VehicleType findVehicleTypeById(Long vehicleTypeId);
+
+    Vehicle findByVehicleById(Long vehicleId);
+
+    boolean exists(Long vehicleId);
+
 }
 
 

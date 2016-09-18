@@ -22,7 +22,27 @@ public class PaletteServiceImpl implements PaletteService {
     private PaletteRepository paletteRepository;
 
     @Override
-    public List<Palette> getAllPaletteType() {
-        return paletteRepository.findAllByTypePalette();
+    public List<Palette> getPaletteByType(String type) {
+        return paletteRepository.findAllByType(type);
+    }
+
+    @Override
+    public List<Palette> getAllPalette() {
+        return paletteRepository.findAll();
+    }
+
+    @Override
+    public Palette findPaletteById(Long paletteId) {
+        return paletteRepository.findOne(paletteId);
+    }
+
+    @Override
+    public boolean exists(Long paletteId) {
+        return paletteRepository.exists(paletteId);
+    }
+
+    @Override
+    public Palette savePalette(Palette palette) {
+        return paletteRepository.save(palette);
     }
 }
