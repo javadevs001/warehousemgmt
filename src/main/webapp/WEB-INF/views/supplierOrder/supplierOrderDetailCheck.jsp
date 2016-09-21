@@ -18,6 +18,7 @@
 
 <form:form action="supplierOrderDetailCheck" commandName="supplierOrderDetailBean" method="post" class="ui form">
 
+    <form:hidden path="supplierOrderId"/>
     <form:hidden path="supplierOrderDetailId"/>
 
     <div class="ui centered container segment padded">
