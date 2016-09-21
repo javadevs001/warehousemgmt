@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ahmedidoumhaidi on 21/08/16.
@@ -49,7 +50,7 @@ public class SupplierOrderRestController {
     public FileSystemResource getSupplierOrderDocument(@RequestParam Long supplierOrderId, HttpServletResponse response) throws Exception {
         SupplierOrderDocumentGenerator supplierOrderDocumentGenerator = new SupplierOrderDocumentGenerator();
         Orders supplierOrders = supplierOrderService.findSupplierOrders(supplierOrderId);
-        List<OrderDetail> allSupplierOrderDetailBySupplierOrder = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(supplierOrders);
+        List<OrderDetail> allSupplierOrderDetailBySupplierOrder = supplierOrderService.findAllSupplierOrderDetailBySupplierOrder(supplierOrders).stream().filter((d) -> !d.isArchived()).collect(Collectors.toList());
         supplierOrderDocumentGenerator.process(supplierOrders, allSupplierOrderDetailBySupplierOrder);
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         response.setHeader("Content-Disposition", "filename=\"" + supplierOrderDocumentGenerator.getTargetFile() + "\"");

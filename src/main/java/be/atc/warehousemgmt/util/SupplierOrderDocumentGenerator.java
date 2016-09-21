@@ -63,7 +63,7 @@ public class SupplierOrderDocumentGenerator {
 
     public void generateContent(Orders orders, List<OrderDetail> orderDetails) throws JAXBException, Docx4JException {
         HashMap<String, String> data = new HashMap<>();
-        String totalPriceTtc = "";
+        Double totalPriceTtc = new Double(0);
         Person person = orders.getPerson();
         data.put("today", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         data.put("createdDate", orders.getCreatedDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -83,7 +83,7 @@ public class SupplierOrderDocumentGenerator {
             addRow(t_ordersDetailTable, 4, article.getLabel(), article.getSellingUnitPrice().toString(), orderDetail.getQuantity(), pricettc.toString());
         }
 
-        data.put("totalOrderAmount", totalPriceTtc + "euros");
+        data.put("totalOrderAmount", totalPriceTtc + " euros");
 
         for (String key : data.keySet()) {
             data.putIfAbsent(key, "");

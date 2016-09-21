@@ -27,7 +27,7 @@
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-                ${supplierOrderDetailBean.updateCase ? 'Modifier' : 'Nouvelle' } ligne de commande pour fournisseur
+                ${supplierOrderDetailBean.updateCase ? 'Modifier' : 'Nouvelle' } ligne de commande fournisseur
         </div>
 
         <s:hasBindErrors name="supplierOrderDetailBean">

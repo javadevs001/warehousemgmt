@@ -63,6 +63,23 @@
                     <table class="ui definition table teal">
                         <tbody>
                         <tr>
+                            <td>Dernière mise à jour le</td>
+                            <td><c:out value="${supplierOrder.lastModifiedDate}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Dernière mise à jour par</td>
+                            <td>
+                                <c:out value="${supplierOrder.lastModifiedBy}"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="twelve wide tablet eight wide computer column">
+                    <table class="ui definition table teal">
+                        <tbody>
+                        <tr>
                             <td>Etat</td>
                             <td><s:message code="orders.state.${supplierOrder.state}.label"/></td>
                         </tr>
