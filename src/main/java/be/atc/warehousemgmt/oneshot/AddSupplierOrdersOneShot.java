@@ -30,6 +30,20 @@ public class AddSupplierOrdersOneShot {
         person.setCompanyName("Delhaise");
         person.setPersonType(PersonType.Supplier);
         person.setName("Ahmed Idoumhaidi");
+        person.setAddressStreet("Rue de delhaise");
+        person.setAddressCity("Charleroi");
+        person.setAddressNumber("12");
+        person.setAddressPostCode("6010");
+        personService.savePerson(person);
+
+        person = new Person();
+        person.setCompanyName("Colruyt");
+        person.setPersonType(PersonType.Supplier);
+        person.setName("Ahmed Idoumhaidi");
+        person.setAddressStreet("Rue de colruyt");
+        person.setAddressCity("Charleroi");
+        person.setAddressNumber("18");
+        person.setAddressPostCode("6010");
         personService.savePerson(person);
 
         Orders orders = new Orders();
@@ -44,6 +58,18 @@ public class AddSupplierOrdersOneShot {
         article.setBuyingUnitPrice(10d);
         article.setDescription("Aucun description pour l'instant");
         article.setLabel("Coca cola");
+        article.setPackageQuantity(1);
+        article.setSellingUnitPrice(13d);
+        article.setVolume(5d);
+        article.setDepth(5d);
+        article.setHeight(5d);
+        articleService.saveArticle(article);
+
+        article = new Article();
+        article.setPerson(person);
+        article.setBuyingUnitPrice(10d);
+        article.setDescription("Aucun description pour l'instant");
+        article.setLabel("Sprite");
         article.setPackageQuantity(1);
         article.setSellingUnitPrice(13d);
         article.setVolume(5d);

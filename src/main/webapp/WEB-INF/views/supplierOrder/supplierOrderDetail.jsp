@@ -114,7 +114,7 @@
                             </div>
                             <div class="ui">
                                 <div class="ui fluid icon input">
-                                    <input id="supplierOrderDetailTableSearch" type="text"
+                                    <input id="supplierOrderDetailSearch" type="text"
                                            placeholder="Recherche rapide ...">
                                     <i class="search icon"></i>
                                 </div>

@@ -23,7 +23,7 @@
     <div class="ui centered container segment padded">
 
         <div class="ui horizontal divider">
-            Vérification de la ligne de commande N° ${supplierOrderDetailId}
+            Vérification de la ligne de commande N° ${supplierOrderDetailBean.supplierOrderDetailId}
         </div>
 
         <s:hasBindErrors name="supplierOrderDetailBean">

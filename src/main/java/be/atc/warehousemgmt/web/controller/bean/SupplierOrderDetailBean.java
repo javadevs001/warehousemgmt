@@ -33,6 +33,7 @@ public class SupplierOrderDetailBean {
 
     public static SupplierOrderDetailBean prepareForCheck(OrderDetail orderDetail) {
         SupplierOrderDetailBean supplierOrderDetailBean = new SupplierOrderDetailBean();
+        supplierOrderDetailBean.setSupplierOrderId(orderDetail.getOrders().getOrdersId());
         supplierOrderDetailBean.setSupplierOrderDetailId(orderDetail.getOrderDetailId());
         supplierOrderDetailBean.setState(orderDetail.getOrderDetailState() != null ? orderDetail.getOrderDetailState().name() : "");
         supplierOrderDetailBean.setQuantityReceived(orderDetail.getQuantityReceived() == null ? orderDetail.getQuantity() : orderDetail.getQuantityReceived());
