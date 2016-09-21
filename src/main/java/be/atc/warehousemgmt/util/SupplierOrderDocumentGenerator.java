@@ -70,7 +70,7 @@ public class SupplierOrderDocumentGenerator {
         data.put("reference", orders.getOrdersId().toString());
 
         data.put("companyname", person.getCompanyName());
-        data.put("street", person.getAddressStreet() + " " + person.getAddressNumber());
+        data.put("street", (person.getAddressStreet() + " " + person.getAddressNumber()).replace("null", ""));
         data.put("city", person.getAddressCity());
         data.put("postalcode", person.getAddressPostCode());
 

@@ -38,10 +38,10 @@
                             <div class="content">
                                 <div class="header">
                                     <i class="icon file text link"></i>
-                                    Gestion des commandes Fournisseurs
+                                    Gestion des commandes Fournisseur
                                 </div>
                                 <div class="description">
-                                    Consultation et Ajout/Modification des commandes fournisseurs.
+                                    Consulter, ajouter et modifier les commandes fournisseur.
                                 </div>
                             </div>
                             <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>"
