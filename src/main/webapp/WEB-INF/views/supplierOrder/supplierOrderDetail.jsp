@@ -9,7 +9,7 @@
 
 <div id="menu" class="ui stackable small menu">
     <a href="<c:url value='/SupplierOrderController/getSupplierOrdersTable'/>" class="item"
-       data-content="Listes des commandes"><i
+       data-content="Listes des commandes fournisseurs"><i
             class="arrow left link icon"></i></a>
     <div class="right menu">
         <a href="<c:url value="/j_spring_security_logout"/>" class="item" data-content="Déconnexion"><i

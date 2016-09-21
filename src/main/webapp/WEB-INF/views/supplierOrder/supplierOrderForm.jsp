@@ -24,10 +24,19 @@
 
     <div class="ui centered container segment padded">
 
-        <div class="ui horizontal divider">
-                ${supplierOrderBean.updateCase ? "Modifier " : "Nouvelle "}
-            Commande pour fournisseur
-        </div>
+        <c:choose>
+            <c:when test="${supplierOrderBean.updateCase}">
+                <div class="ui horizontal divider">
+                    Modifier la commande fournisseur N°${supplierOrderBean.ordersId}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="ui horizontal divider">
+                    Nouvelle commande pour fournisseur
+                </div>
+            </c:otherwise>
+        </c:choose>
+
 
         <s:hasBindErrors name="supplierOrderBean">
             <div class="ui warning visible message">

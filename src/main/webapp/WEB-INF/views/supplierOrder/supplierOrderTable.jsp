@@ -27,7 +27,7 @@
         <div class="ui column grid stackable doubling centered container segment">
 
             <div class="ui horizontal divider">
-                <i class="icon table link"></i>Commandes fournisseur
+                <i class="icon table link"></i>Commandes fournisseurs
             </div>
 
             <div class="row">
