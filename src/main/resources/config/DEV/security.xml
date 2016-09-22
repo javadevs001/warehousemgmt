@@ -13,10 +13,10 @@
     <http use-expressions="true">
         <anonymous enabled="true"/>
 
-        <intercept-url pattern="/api/secured/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/api/secured/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
         <intercept-url pattern="/LoginController/getLoginView/**" access="permitAll"/>
-        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
 
         <form-login
                 login-page="/LoginController/getLoginView"
@@ -34,6 +34,7 @@
         <authentication-provider>
             <user-service>
                 <user name="admin" password="admin" authorities="ROLE_USER"/>
+                <user name="ahmed" password="ahmed" authorities="ROLE_SUPPLIER_MANAGER"/>
             </user-service>
         </authentication-provider>
         <authentication-provider ref="daoAuthenticationProvider"/>
