@@ -12,3 +12,12 @@ body {
 .dataTables_filter, .dataTables_info {
     display: none !important;
 }
+
+.deleteOrderDetailModalSelector {
+}
+
+.deleteSupplierOrderSelector {
+}
+
+.checkSupplierOrderSelector {
+}

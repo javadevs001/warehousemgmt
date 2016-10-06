@@ -20,12 +20,24 @@
 <form:form action="saveSupplierOrderDetail" method="post" commandName="supplierOrderDetailBean" class="ui form">
 
     <form:hidden path="supplierOrderId"/>
+    <form:hidden path="supplierOrderDetailId"/>
+    <form:hidden path="updateCase"/>
+
 
     <div class="ui centered container segment padded">
 
-        <div class="ui horizontal divider">
-            Nouvelle ligne de commande pour fournisseur
-        </div>
+        <c:choose>
+            <c:when test="${supplierOrderDetailBean.updateCase}">
+                <div class="ui horizontal divider">
+                    Modifier la ligne de commande fournisseur N°${supplierOrderDetailBean.supplierOrderDetailId}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="ui horizontal divider">
+                    Nouvelle ligne de commande fournisseur
+                </div>
+            </c:otherwise>
+        </c:choose>
 
         <s:hasBindErrors name="supplierOrderDetailBean">
             <div class="ui warning visible message">
@@ -40,10 +52,10 @@
                 <s:bind path="article">
                     <div class="field ${status.error ? 'error' : ''}">
                         <label class="label">Article</label>
-                        <div class="ui selection dropdown">
+                        <div class="ui selection dropdown ${supplierOrderDetailBean.updateCase ? 'disabled' : ''}">
                             <form:input type="hidden" path="article"/>
                             <i class="dropdown icon"></i>
-                            <div class="default text">Article</div>
+                            <div class="default text">Article *</div>
                             <div class="menu">
                                 <c:forEach items="${articles}" var="article">
                                     <div class="item" data-value="${article.articleId}">
@@ -60,7 +72,7 @@
 
                 <s:bind path="quantity">
                     <div class="field ${status.error ? 'error' : ''}">
-                        <label class="label">Quantité</label>
+                        <label class="label">Quantité *</label>
                         <form:input path="quantity" type="text" placeholder="La quantité"/>
                         <c:if test="${status.error}">
                             <div class="ui basic red pointing prompt label transition visible">${status.errorMessage}</div>
@@ -74,8 +86,8 @@
 
         <div class="ui segment" style="text-align: center;">
             <div class="ui buttons aligned right">
-                <a href="#"
-                   type="reset" class="ui button"><s:message code="button.back.message"/></a>
+                <a href="<c:url value="/SupplierOrderController/getSupplierOrderDetail?supplierOrderId=${supplierOrderDetailBean.supplierOrderId}"/>"
+                   class="ui button"><s:message code="button.back.message"/></a>
                 <div class="or" data-text="ou"></div>
                 <button type="submit" class="ui blue button"><s:message code="button.submit.message"/></button>
             </div>

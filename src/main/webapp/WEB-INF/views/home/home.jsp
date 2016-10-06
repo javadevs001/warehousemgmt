@@ -38,18 +38,18 @@
                             <div class="content">
                                 <div class="header">
                                     <i class="icon file text link"></i>
-                                    Gestion des commandes Fournisseurs
+                                    Gestion des commandes fournisseurs
                                 </div>
                                 <div class="description">
-                                    Consultation et Ajout/Modification des commandes fournisseurs.
+                                    Consulter, ajouter et modifier les commandes fournisseurs.
                                 </div>
                             </div>
-                            <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                            <a href="<c:url value="/SupplierOrderController/getSupplierOrderTable"/>"
-                               class="ui bottom attached button blue">
-                                <i class="eye icon"></i>
-                                Consulter
-                            </a>
+                            <security:authorize access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_ADMIN')">
+                                <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>"
+                                   class="ui bottom attached button blue">
+                                    <i class="eye icon"></i>
+                                    Consulter
+                                </a>
                             </security:authorize>
                         </div>
                     </div>

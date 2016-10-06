@@ -18,12 +18,14 @@ public class LoginController {
 
     @RequestMapping(value = "getLoginView", method = RequestMethod.GET)
     private String getLoginView(Model model,
+                                @RequestParam(required = false) boolean sessionExpired,
                                 @RequestParam(required = false) boolean error,
                                 @RequestParam(required = false) boolean logout,
                                 @RequestParam(required = false) boolean unauthorized) {
         model.addAttribute("error", error);
         model.addAttribute("unauthorized", unauthorized);
         model.addAttribute("logout", logout);
+        model.addAttribute("sessionExpired", sessionExpired);
         return "loginView";
     }
 }

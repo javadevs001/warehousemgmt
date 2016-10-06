@@ -22,7 +22,7 @@
             <!--THE CONTENT OF THE UI CARD-->
             <div class="content">
                 <!--THE HEADER-->
-                <a class="ui grey header">WareHouseMGMT</a>
+                <a class="ui grey header"><i class="icon privacy"></i>WareHouseMGMT</a>
 
                 <!-- DIVIDER-->
                 <div class="ui divider"></div>

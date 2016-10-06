@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+             xmlns="http://www.springframework.org/schema/security" xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+
+    <http pattern="/src/main/resources/**" security="none"/>
+    <http pattern="/favicon.ico" security="none"/>
+
+    <http use-expressions="true">
+        <anonymous enabled="true"/>
+
+        <intercept-url pattern="/api/secured/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/LoginController/getLoginView/**" access="permitAll"/>
+        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
+
+        <form-login
+                login-page="/LoginController/getLoginView"
+                authentication-failure-url="/LoginController/getLoginView?error=true"
+                default-target-url="/HomeController/getHomeView"
+                always-use-default-target="true"
+                password-parameter="password" username-parameter="login"/>
+
+        <logout logout-success-url="/LoginController/getLoginView?logout=true"/>
+        <access-denied-handler error-page="/LoginController/getLoginView?unauthorized=true"/>
+    </http>
+
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="admin" authorities="ROLE_USER"/>
+                <user name="ahmed" password="ahmed" authorities="ROLE_SUPPLIER_MANAGER"/>
+            </user-service>
+        </authentication-provider>
+        <authentication-provider ref="daoAuthenticationProvider"/>
+    </authentication-manager>
+
+    <beans:bean id="securityService" class="be.atc.warehousemgmt.security.SecurityService"/>
+
+    <beans:bean id="encoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <beans:bean id="daoAuthenticationProvider"
+                class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="securityService"/>
+        <beans:property name="passwordEncoder" ref="encoder"/>
+    </beans:bean>
 
 </beans:beans>

@@ -10,6 +10,7 @@ import be.atc.warehousemgmt.model.entity.orders.OrderType;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
 import be.atc.warehousemgmt.model.service.ArticleService;
 import be.atc.warehousemgmt.model.service.PersonService;
+import be.atc.warehousemgmt.model.service.SupplierOrderDetailService;
 import be.atc.warehousemgmt.model.service.SupplierOrderService;
 import org.springframework.context.support.AbstractApplicationContext;
 
@@ -21,12 +22,28 @@ public class AddSupplierOrdersOneShot {
     public static void main(String[] args) {
         AbstractApplicationContext applicationContext = OneShotConfig.initApplicationContextFromEnvironment("dev");
         SupplierOrderService supplierOrderService = applicationContext.getBean(SupplierOrderService.class);
+        SupplierOrderDetailService supplierOrderDetailService = applicationContext.getBean(SupplierOrderDetailService.class);
         PersonService personService = applicationContext.getBean(PersonService.class);
         ArticleService articleService = applicationContext.getBean(ArticleService.class);
 
         Person person = new Person();
-        person.setCompanyName("Carrefour");
+        person.setCompanyName("Delhaise");
         person.setPersonType(PersonType.Supplier);
+        person.setName("Ahmed Idoumhaidi");
+        person.setAddressStreet("Rue de delhaise");
+        person.setAddressCity("Charleroi");
+        person.setAddressNumber("12");
+        person.setAddressPostCode("6010");
+        personService.savePerson(person);
+
+        person = new Person();
+        person.setCompanyName("Colruyt");
+        person.setPersonType(PersonType.Supplier);
+        person.setName("Ahmed Idoumhaidi");
+        person.setAddressStreet("Rue de colruyt");
+        person.setAddressCity("Charleroi");
+        person.setAddressNumber("18");
+        person.setAddressPostCode("6010");
         personService.savePerson(person);
 
         Orders orders = new Orders();
@@ -36,22 +53,37 @@ public class AddSupplierOrdersOneShot {
         orders.setType(OrderType.Supplier);
         supplierOrderService.saveSupplierOrder(orders);
 
+        Article article = new Article();
+        article.setPerson(person);
+        article.setBuyingUnitPrice(10d);
+        article.setDescription("Aucun description pour l'instant");
+        article.setLabel("Coca cola");
+        article.setPackageQuantity(1);
+        article.setSellingUnitPrice(13d);
+        article.setVolume(5d);
+        article.setDepth(5d);
+        article.setHeight(5d);
+        articleService.saveArticle(article);
 
-        Article article5 = new Article();
-        article5.setPerson(person);
-        article5.setBuyingUnitPrice(40d);
-        article5.setDescription("Aucune description pour l'instant");
-        article5.setLabel("Jack Daniels");
-        article5.setPackageQuantity(6);
-        article5.setSellingUnitPrice(55d);
-        article5.setVolume(11d);
-        article5.setDepth(11d);
-        article5.setHeight(16d);
-        article5.setWeight(14.0);
-        articleService.saveArticle(article5);
+        article = new Article();
+        article.setPerson(person);
+        article.setBuyingUnitPrice(10d);
+        article.setDescription("Aucun description pour l'instant");
+        article.setLabel("Sprite");
+        article.setPackageQuantity(1);
+        article.setSellingUnitPrice(13d);
+        article.setVolume(5d);
+        article.setDepth(5d);
+        article.setHeight(5d);
+        articleService.saveArticle(article);
 
-
-
+      /*  Article articleById = articleService.findArticleById(1L);
+        Person person = articleById.getPerson();
+        SupplierOrderDetail supplierOrderDetail = new SupplierOrderDetail();
+        supplierOrderDetail.setArticle(articleById);
+        supplierOrderDetail.setQuantity(10000);
+        supplierOrderDetail.setSupplierOrderDetailType(SupplierOrderDetailType.Regular);
+        supplierOrderDetailService.save(supplierOrderDetail);*/
 
     }
 }

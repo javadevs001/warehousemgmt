@@ -14,6 +14,13 @@ function initSemanticObject() {
     ;
 }
 
+
+function handleAjaxError(error) {
+    if (error.status == 403) {
+        window.location = ctx + "/LoginController/getLoginView?sessionExpired=true";
+    }
+}
+
 /* Common application init */
 $(document).ready(function () {
 

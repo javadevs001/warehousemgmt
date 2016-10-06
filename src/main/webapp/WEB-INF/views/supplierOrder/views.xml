@@ -18,6 +18,20 @@
 
     </definition>
 
+    <definition name="supplierOrderSynchroTable" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/supplierOrder/SupplierOrderSynchroTable.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+            <add-attribute value="app/supplierOrder/supplierOrderSynchroTable.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+
     <definition name="supplierOrderForm" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/supplierOrder/supplierOrderForm.jsp"/>
 
@@ -57,4 +71,18 @@
         </put-list-attribute>
 
     </definition>
+
+    <definition name="supplierOrderDetailCheck" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/supplierOrder/supplierOrderDetailCheck.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+
 </tiles-definitions>

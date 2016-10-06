@@ -2,6 +2,7 @@ package be.atc.warehousemgmt.web.controller.bean;
 
 import be.atc.warehousemgmt.model.entity.catalog.Article;
 import be.atc.warehousemgmt.model.entity.orders.OrderDetail;
+import be.atc.warehousemgmt.model.entity.orders.OrderDetailState;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
 
 import java.time.format.DateTimeFormatter;
@@ -22,8 +23,22 @@ public class SupplierOrderDetailBean {
     private String createdBy;
     private String updatedBy;
     private String articleLabel;
+    private boolean updateCase;
+    private String comments;
+    private String quantityReceived;
+
 
     public SupplierOrderDetailBean() {
+    }
+
+    public static SupplierOrderDetailBean prepareForCheck(OrderDetail orderDetail) {
+        SupplierOrderDetailBean supplierOrderDetailBean = new SupplierOrderDetailBean();
+        supplierOrderDetailBean.setSupplierOrderId(orderDetail.getOrders().getOrdersId());
+        supplierOrderDetailBean.setSupplierOrderDetailId(orderDetail.getOrderDetailId());
+        supplierOrderDetailBean.setState(orderDetail.getOrderDetailState() != null ? orderDetail.getOrderDetailState().name() : "");
+        supplierOrderDetailBean.setQuantityReceived(orderDetail.getQuantityReceived() == null ? orderDetail.getQuantity() : orderDetail.getQuantityReceived());
+        supplierOrderDetailBean.setComments(orderDetail.getComments());
+        return supplierOrderDetailBean;
     }
 
     public static SupplierOrderDetailBean of(OrderDetail orderDetail) {
@@ -41,13 +56,25 @@ public class SupplierOrderDetailBean {
         return supplierOrderDetailBean;
     }
 
+    public OrderDetail performForCheck(OrderDetail orderDetail) {
+        orderDetail.setOrderDetailState(OrderDetailState.valueOf(getState()));
+        orderDetail.setQuantityReceived(getQuantityReceived());
+        orderDetail.setComments(getComments());
+        return orderDetail;
+    }
+
     public OrderDetail prepareForCreation(Article article, Orders orders) {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setOrders(orders);
         orderDetail.setArticle(article);
-        orderDetail.setArticle(article);
         orderDetail.setQuantity(getQuantity());
+        orderDetail.setOrderDetailState(OrderDetailState.WAIT_FOR_STOCK);
         return orderDetail;
+    }
+
+    public OrderDetail prepareForUpdate(OrderDetail supplierOrderDetail) {
+        supplierOrderDetail.setQuantity(getQuantity());
+        return supplierOrderDetail;
     }
 
     public Long getSupplierOrderDetailId() {
@@ -130,4 +157,30 @@ public class SupplierOrderDetailBean {
     public void setArticleLabel(String articleLabel) {
         this.articleLabel = articleLabel;
     }
+
+    public boolean isUpdateCase() {
+        return updateCase;
+    }
+
+    public void setUpdateCase(boolean updateCase) {
+        this.updateCase = updateCase;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getQuantityReceived() {
+        return quantityReceived;
+    }
+
+    public void setQuantityReceived(String quantityReceived) {
+        this.quantityReceived = quantityReceived;
+    }
+
+
 }
