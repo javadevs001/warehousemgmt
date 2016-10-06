@@ -9,3 +9,6 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.dataTables_filter, .dataTables_info {
+    display: none !important;
+}

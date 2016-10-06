@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by ahmedidoumhaidi on 12/07/16.
@@ -38,6 +39,26 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findPersonById(Long personId) {
         return personRepository.findOne(personId);
+    }
+
+    @Override
+    public Optional<Person> findByCompanyName(String companyName) {
+        return personRepository.findByCompanyName(companyName);
+    }
+
+    @Override
+    public boolean personExist(Long personId) {
+        return personRepository.exists(personId);
+    }
+
+    @Override
+    public Optional<Person> findByEmail(String email) {
+        return personRepository.findByEmail(email);
+    }
+
+    @Override
+    public void delete(Person supplier) {
+        personRepository.delete(supplier);
     }
 
 }
