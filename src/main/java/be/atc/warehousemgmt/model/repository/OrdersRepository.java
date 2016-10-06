@@ -1,6 +1,7 @@
 package be.atc.warehousemgmt.model.repository;
 
 import be.atc.warehousemgmt.model.entity.Person;
+import be.atc.warehousemgmt.model.entity.delivery.Delivery;
 import be.atc.warehousemgmt.model.entity.orders.OrderState;
 import be.atc.warehousemgmt.model.entity.orders.OrderType;
 import be.atc.warehousemgmt.model.entity.orders.Orders;
@@ -18,4 +19,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findByPersonAndStateOrderByCreatedDateDesc(Person person, OrderState orderState);
 
     Orders findByDelivery(Delivery delivery);
+
+    List<Orders> findAllByState(OrderState readyToDelivred);
 }

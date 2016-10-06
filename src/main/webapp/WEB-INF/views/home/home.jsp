@@ -33,26 +33,26 @@
             </div>
             <div class="ui hidden divider horizontal"></div>
             <div class="ui three column grid container stackable doubling centered">
-                    <div class="column">
-                        <div class="ui card">
-                            <div class="content">
-                                <div class="header">
-                                    <i class="icon file text link"></i>
-                                    Gestion des commandes fournisseurs
-                                </div>
-                                <div class="description">
-                                    Consulter, ajouter et modifier les commandes fournisseurs.
-                                </div>
+                <div class="column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="icon file text link"></i>
+                                Gestion des commandes fournisseurs
                             </div>
-                            <security:authorize access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_ADMIN')">
-                                <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>"
-                                   class="ui bottom attached button blue">
-                                    <i class="eye icon"></i>
-                                    Consulter
-                                </a>
-                            </security:authorize>
+                            <div class="description">
+                                Consulter, ajouter et modifier les commandes fournisseurs.
+                            </div>
                         </div>
+                        <security:authorize access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_ADMIN')">
+                            <a href="<c:url value="/SupplierOrderController/getSupplierOrdersTable"/>"
+                               class="ui bottom attached button blue">
+                                <i class="eye icon"></i>
+                                Consulter
+                            </a>
+                        </security:authorize>
                     </div>
+                </div>
                 <div class="column">
                     <div class="ui card">
                         <div class="content">
@@ -93,27 +93,28 @@
                         </security:authorize>
                     </div>
                 </div>
-            </div>
-            <div class="column">
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">
-                            <i class="icon file text link"></i>
-                            Gestion des Livraisons et des camions
+                <div class="column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="icon file text link"></i>
+                                Gestion des Livraisons et des camions
+                            </div>
+                            <div class="description">
+                                Consultation des livraisons et des statuts des camions ainsi que l'affichage des
+                                commandes client
+                            </div>
                         </div>
-                        <div class="description">
-                            Consultation des livraisons et des statuts des camions ainsi que l'affichage des commandes client
-                        </div>
+                        <security:authorize access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')">
+                            <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
+                               class="ui bottom attached button blue">
+                                <i class="eye icon"></i>
+                                Consulter
+                            </a>
+                        </security:authorize>
                     </div>
-                    <security:authorize access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')">
-                        <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
-                           class="ui bottom attached button blue">
-                            <i class="eye icon"></i>
-                            Consulter
-                        </a>
-                    </security:authorize>
-                </div>
 
+                </div>
             </div>
             <div class="ui hidden divider horizontal"></div>
         </div>

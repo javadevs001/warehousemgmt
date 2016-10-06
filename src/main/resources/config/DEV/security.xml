@@ -15,13 +15,14 @@
 
         <intercept-url pattern="/api/secured/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
         <intercept-url pattern="/LoginController/getLoginView/**" access="permitAll"/>
-        <intercept-url pattern="/HomeController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_DELIVERY_MANAGER,ROLE_CATALOG_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/ArticleController/**" access="hasAnyRole('ROLE_CATALOG_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/SupplierController/**" access="hasAnyRole('ROLE_CATALOG_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/DeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/VehicleController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/HomeDeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER,ROLE_ADMIN')"/>
-        <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER,ROLE_ADMIN')"/>
+        <intercept-url pattern="/HomeController/**"
+                       access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_DELIVERY_MANAGER','ROLE_CATALOG_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/ArticleController/**" access="hasAnyRole('ROLE_CATALOG_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/SupplierController/**" access="hasAnyRole('ROLE_CATALOG_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/DeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/VehicleController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/HomeDeliveryController/**" access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/SupplierOrderController/**" access="hasAnyRole('ROLE_SUPPLIER_MANAGER','ROLE_ADMIN')"/>
 
 
         <form-login
