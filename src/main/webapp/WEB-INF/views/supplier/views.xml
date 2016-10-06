@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="supplierTable" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/supplier/supplierTable.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+            <add-attribute value="app/supplier/supplierTable.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+
+    <definition name="supplierForm" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/supplier/supplierForm.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+
+    <definition name="supplierDetail" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/supplier/supplierDetail.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+</tiles-definitions>

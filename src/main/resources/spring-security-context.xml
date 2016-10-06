@@ -6,6 +6,6 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <beans:import resource="config/${ENV}/security.xml"/>
+    <beans:import resource="config/DEV/security.xml"/>
 
 </beans:beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="articleTable" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/article/articleTable.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+            <add-attribute value="app/article/articleTable.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+
+    <definition name="articleForm" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/article/articleForm.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+    <definition name="articleDetail" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/article/articleDetail.jsp"/>
+
+        <put-list-attribute name="jsNames">
+            <add-attribute value="app/application.js"/>
+        </put-list-attribute>
+
+        <put-list-attribute name="styleNames">
+            <add-attribute value="app/application.css"/>
+        </put-list-attribute>
+
+    </definition>
+</tiles-definitions>

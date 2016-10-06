@@ -44,36 +44,77 @@
                                     Consultation et Ajout/Modification des commandes fournisseurs.
                                 </div>
                             </div>
+                            <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                             <a href="<c:url value="/SupplierOrderController/getSupplierOrderTable"/>"
                                class="ui bottom attached button blue">
                                 <i class="eye icon"></i>
                                 Consulter
                             </a>
+                            </security:authorize>
                         </div>
-
-            </div>
+                    </div>
                 <div class="column">
                     <div class="ui card">
                         <div class="content">
                             <div class="header">
                                 <i class="icon file text link"></i>
-                                Gestion des Livraisons et des camions
+                                Gestion des Fournisseurs
                             </div>
                             <div class="description">
-                                Consultation des livraisons et des statuts des camions ainsi que l'affichage des commandes client
+                                Consultation et Ajout/Modification des fournisseurs.
                             </div>
                         </div>
-                        <security:authorize access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')">
-                            <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
-                               class="ui bottom attached button blue">
+                        <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_CATALOG_MANAGER')">
+                            <a href="<c:url value="/SupplierController/getSupplierTable"/>"
+                               class="ui bottom attached button green">
                                 <i class="eye icon"></i>
                                 Consulter
                             </a>
                         </security:authorize>
                     </div>
-
+                </div>
+                <div class="column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="icon file text link"></i>
+                                Gestion des Articles
+                            </div>
+                            <div class="description">
+                                Consultation et Ajout/Modification des articles.
+                            </div>
+                        </div>
+                        <security:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_CATALOG_MANAGER')">
+                            <a href="<c:url value="/ArticleController/getArticleTable"/>"
+                               class="ui bottom attached button green">
+                                <i class="eye icon"></i>
+                                Consulter
+                            </a>
+                        </security:authorize>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">
+                            <i class="icon file text link"></i>
+                            Gestion des Livraisons et des camions
+                        </div>
+                        <div class="description">
+                            Consultation des livraisons et des statuts des camions ainsi que l'affichage des commandes client
+                        </div>
+                    </div>
+                    <security:authorize access="hasAnyRole('ROLE_DELIVERY_MANAGER','ROLE_ADMIN')">
+                        <a href="<c:url value="/HomeDeliveryController/getHomeDeliveryView"/>"
+                           class="ui bottom attached button blue">
+                            <i class="eye icon"></i>
+                            Consulter
+                        </a>
+                    </security:authorize>
                 </div>
 
+            </div>
             <div class="ui hidden divider horizontal"></div>
         </div>
     </div>

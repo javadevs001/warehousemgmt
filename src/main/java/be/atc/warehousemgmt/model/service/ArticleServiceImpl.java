@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by ahmedidoumhaidi on 13/07/16.
@@ -37,6 +39,25 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findOne(article);
     }
 
+    @Override
+    public List<Article> findAll() {
+        return articleRepository.findAll();
+    }
+
+    @Override
+    public boolean articleExist(Long articleId) {
+        return articleRepository.exists(articleId);
+    }
+
+    @Override
+    public List<Article> findByArchivedFalse() {
+        return articleRepository.findByArchivedFalse();
+    }
+
+    @Override
+    public Optional<Article> findByLabel(String label) {
+        return articleRepository.findByLabel(label);
+    }
 
 
 }
